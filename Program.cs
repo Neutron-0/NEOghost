@@ -12,6 +12,7 @@
 #endregion
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ***REMOVED***.MouseJiggle
@@ -28,25 +29,35 @@ namespace ***REMOVED***.MouseJiggle
         [STAThread]
         private static void Main (string[] args)
         {
-            // Check for command-line switches.
-            foreach (string arg in args)
+            Mutex instance = new Mutex(false, "single instance: ***REMOVED***.MouseJiggle");
+
+            if (instance.WaitOne(0, false))
             {
-                if ((System.String.Compare (arg.ToUpperInvariant (), "--JIGGLE", System.StringComparison.Ordinal) == 0) ||
-                    (System.String.Compare (arg.ToUpperInvariant (), "-J", System.StringComparison.Ordinal) == 0))
-                    StartJiggling = true;
+                // Check for command-line switches.
+                foreach (string arg in args)
+                {
+                    if ((System.String.Compare (arg.ToUpperInvariant (), "--JIGGLE", System.StringComparison.Ordinal) ==
+                         0) ||
+                        (System.String.Compare (arg.ToUpperInvariant (), "-J", System.StringComparison.Ordinal) == 0))
+                        StartJiggling = true;
 
-                if ((System.String.Compare (arg.ToUpperInvariant (), "--ZEN", System.StringComparison.Ordinal) == 0) ||
-                    (System.String.Compare (arg.ToUpperInvariant (), "-Z", System.StringComparison.Ordinal) == 0))
-                    ZenJiggling = true;
+                    if ((System.String.Compare (arg.ToUpperInvariant (), "--ZEN", System.StringComparison.Ordinal) == 0) ||
+                        (System.String.Compare (arg.ToUpperInvariant (), "-Z", System.StringComparison.Ordinal) == 0))
+                        ZenJiggling = true;
 
-                if ((System.String.Compare (arg.ToUpperInvariant (), "--MINIMIZED", System.StringComparison.Ordinal) == 0) ||
-                    (System.String.Compare (arg.ToUpperInvariant (), "-M", System.StringComparison.Ordinal) == 0))
-                    StartMinimized = true;
+                    if (
+                        (System.String.Compare (arg.ToUpperInvariant (), "--MINIMIZED", System.StringComparison.Ordinal) ==
+                         0) ||
+                        (System.String.Compare (arg.ToUpperInvariant (), "-M", System.StringComparison.Ordinal) == 0))
+                        StartMinimized = true;
+                }
+
+                Application.EnableVisualStyles ();
+                Application.SetCompatibleTextRenderingDefault (false);
+                Application.Run (new MainForm ());
             }
 
-            Application.EnableVisualStyles ();
-            Application.SetCompatibleTextRenderingDefault (false);
-            Application.Run (new MainForm ());
+            instance.Close ();
         }
     }
 }
