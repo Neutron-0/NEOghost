@@ -89,7 +89,7 @@ namespace ***REMOVED***.MouseJiggle
 				cbEnabled.Checked = true;
 			}
 
-			if (Program.StartWithSeconds != default)
+			if (Program.StartWithSeconds != default(int))
 			{
 				SetSeconds();
 			}
