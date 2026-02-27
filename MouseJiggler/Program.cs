@@ -9,12 +9,12 @@
 
 #region using
 
+using ***REMOVED***.MouseJiggler.Properties;
+using JetBrains.Annotations;
 using System;
 using System.CommandLine;
 using System.Threading;
 using System.Windows.Forms;
-using ***REMOVED***.MouseJiggler.Properties;
-using JetBrains.Annotations;
 using Windows.Win32;
 
 #endregion
