@@ -1,4 +1,4 @@
-﻿namespace ***REMOVED***.MouseJiggler;
+namespace Neutron.MouseJiggler;
 
 internal static class JigglePatterns
 {
@@ -50,3 +50,4 @@ internal static class JigglePatterns
 
   public static (int deltax, int deltay)[] Linear { get; private set; } = null!;
 }
+
