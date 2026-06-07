@@ -1,4 +1,4 @@
-namespace ***REMOVED***.MouseJiggler
+namespace Neutron.MouseJiggler
 {
   partial class MainForm
   {
@@ -37,7 +37,7 @@ namespace ***REMOVED***.MouseJiggler
       // Jiggle toggle row
       this.panelBase      = new System.Windows.Forms.Panel ();
       this.lblJiggleTitle = new System.Windows.Forms.Label ();
-      this.cbJiggling     = new ***REMOVED***.MouseJiggler.Controls.ToggleSwitch ();
+      this.cbJiggling     = new Neutron.MouseJiggler.Controls.ToggleSwitch ();
 
       // Action buttons
       this.panelActions = new System.Windows.Forms.Panel ();
@@ -51,14 +51,14 @@ namespace ***REMOVED***.MouseJiggler
       this.lblModeTitle     = new System.Windows.Forms.Label ();
       this.cmbJiggleMode    = new System.Windows.Forms.ComboBox ();
       this.lblRandomTitle   = new System.Windows.Forms.Label ();
-      this.cbRandom         = new ***REMOVED***.MouseJiggler.Controls.ToggleSwitch ();
+      this.cbRandom         = new Neutron.MouseJiggler.Controls.ToggleSwitch ();
       this.lblPeriodLabel   = new System.Windows.Forms.Label ();
       this.nudPeriod        = new System.Windows.Forms.NumericUpDown ();
       this.lbPeriod         = new System.Windows.Forms.Label ();
       this.lblDistanceLabel = new System.Windows.Forms.Label ();
       this.nudDistance      = new System.Windows.Forms.NumericUpDown ();
       this.lblMinimizeTitle = new System.Windows.Forms.Label ();
-      this.cbMinimize       = new ***REMOVED***.MouseJiggler.Controls.ToggleSwitch ();
+      this.cbMinimize       = new Neutron.MouseJiggler.Controls.ToggleSwitch ();
 
       this.flpLayout.SuspendLayout ();
       this.panelHeader.SuspendLayout ();
@@ -443,7 +443,7 @@ namespace ***REMOVED***.MouseJiggler
 
     private System.Windows.Forms.Panel                       panelBase;
     private System.Windows.Forms.Label                       lblJiggleTitle;
-    private ***REMOVED***.MouseJiggler.Controls.ToggleSwitch cbJiggling;
+    private Neutron.MouseJiggler.Controls.ToggleSwitch cbJiggling;
 
     private System.Windows.Forms.Panel                       panelActions;
     private System.Windows.Forms.Button                      btnSettings;
@@ -455,14 +455,14 @@ namespace ***REMOVED***.MouseJiggler
     private System.Windows.Forms.Label                       lblModeTitle;
     private System.Windows.Forms.ComboBox                    cmbJiggleMode;
     private System.Windows.Forms.Label                       lblRandomTitle;
-    private ***REMOVED***.MouseJiggler.Controls.ToggleSwitch cbRandom;
+    private Neutron.MouseJiggler.Controls.ToggleSwitch cbRandom;
     private System.Windows.Forms.Label                       lblPeriodLabel;
     private System.Windows.Forms.NumericUpDown               nudPeriod;
     private System.Windows.Forms.Label                       lbPeriod;
     private System.Windows.Forms.Label                       lblDistanceLabel;
     private System.Windows.Forms.NumericUpDown               nudDistance;
     private System.Windows.Forms.Label                       lblMinimizeTitle;
-    private ***REMOVED***.MouseJiggler.Controls.ToggleSwitch cbMinimize;
+    private Neutron.MouseJiggler.Controls.ToggleSwitch cbMinimize;
 
     private System.Windows.Forms.NotifyIcon                  niTray;
     private System.Windows.Forms.ContextMenuStrip            trayMenu;
@@ -472,3 +472,4 @@ namespace ***REMOVED***.MouseJiggler
     private System.Windows.Forms.ToolStripMenuItem           tsmiExit;
   }
 }
+
