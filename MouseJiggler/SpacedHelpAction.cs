@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.CommandLine;
 using System.CommandLine.Help;
 using System.CommandLine.Invocation;
 
-namespace ***REMOVED***.MouseJiggler;
+namespace Neutron.MouseJiggler;
 
 /// <summary>
 /// Provides a command-line help action that displays a blank line before the standard help output.
@@ -24,3 +24,4 @@ internal class SpacedHelpAction : SynchronousCommandLineAction
     return result;
   }
 }
+
