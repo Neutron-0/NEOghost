@@ -180,3 +180,7 @@ FakesAssemblies/
 
 # Chocolatey package
 *.nupkg
+
+# Inno Setup output and scripts
+inno-compiler-output/
+inno-scripts/
