@@ -2,6 +2,8 @@
 
 A focused Windows desktop application that prevents idle detection by gently simulating mouse movement. This repository is intentionally stripped of packaging, deployment, and distribution tooling so it remains clean and centered on the application logic.
 
+**License:** MIT
+
 ## Project Context
 
 `MouseJiggler` is a Windows Forms application targeting .NET 10 (`net10.0-windows10.0.17763.0`). It is built to run as a single instance, with both a user interface and command-line support.
@@ -116,7 +118,7 @@ This repository now includes the common files expected by modern open source pro
 
 ### Current License
 
-This repository is currently licensed under the Microsoft Public License (Ms-PL), as defined in the `LICENSE` file. It is not currently licensed under the MIT license. If you want to adopt the MIT license instead, the existing `LICENSE` file should be replaced with MIT text and the README updated accordingly.
+This repository is licensed under the MIT License, as defined in the `LICENSE` file at the repository root.
 
 ## Notes
 
