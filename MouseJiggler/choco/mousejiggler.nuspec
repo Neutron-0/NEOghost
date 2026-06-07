@@ -3,18 +3,18 @@
   <metadata>
     <id>mouse-jiggler</id>
     <version>3.0.0</version>
-    <packageSourceUrl>https://github.com/***REMOVED***/mousejiggler</packageSourceUrl>
-    <owners>***REMOVED***</owners>
+    <packageSourceUrl>https://github.com/Neutron-0/nMouse-jiggler</packageSourceUrl>
+    <owners>Neutron-0</owners>
     <title>Mouse Jiggler</title>
-    <authors>Alistair J. R. Young, Dimitris Panokostas</authors>
-    <projectUrl>https://github.com/***REMOVED***/mousejiggler</projectUrl>
+    <authors>Neutron</authors>
+    <projectUrl>https://github.com/Neutron-0/nMouse-jiggler</projectUrl>
     <iconUrl>https://arkane-webmisc.s3.us-east-1.amazonaws.com/mouse-jiggler.png</iconUrl>
-    <copyright>Copyright © Alistair J. R. Young 2007-2026</copyright>
-    <licenseUrl>https://github.com/***REMOVED***/mousejiggler/blob/master/LICENSE</licenseUrl>
+    <copyright>Copyright © Neutron 2007-2026</copyright>
+    <licenseUrl>https://github.com/Neutron-0/nMouse-jiggler/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <projectSourceUrl>https://github.com/***REMOVED***/mousejiggler</projectSourceUrl>
-    <docsUrl>https://github.com/***REMOVED***/mousejiggler#operation</docsUrl>
-    <bugTrackerUrl>https://github.com/***REMOVED***/mousejiggler/issues</bugTrackerUrl>
+    <projectSourceUrl>https://github.com/Neutron-0/nMouse-jiggler</projectSourceUrl>
+    <docsUrl>https://github.com/Neutron-0/nMouse-jiggler#operation</docsUrl>
+    <bugTrackerUrl>https://github.com/Neutron-0/nMouse-jiggler/issues</bugTrackerUrl>
     <tags>mouse jiggler screensaver idle detection</tags>
     <summary>A utility to continuously jiggle the mouse pointer to prevent screen saver activation</summary>
     <description>
@@ -31,7 +31,7 @@ Features:
 - Minimizable to notification area
 - Command-line interface for scripting and automation
     </description>
-    <releaseNotes>https://github.com/***REMOVED***/mousejiggler/releases</releaseNotes>
+    <releaseNotes>https://github.com/Neutron-0/nMouse-jiggler/releases</releaseNotes>
     <dependencies>
       <dependency id="dotnet-10.0-desktopruntime" version="10.0.3" />
     </dependencies>

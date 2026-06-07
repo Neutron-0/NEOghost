@@ -6,7 +6,7 @@ in verifying that this package's contents are trustworthy.
 The binaries contained in this package are downloaded directly from the official
 GitHub release page for Mouse Jiggler:
 
-https://github.com/***REMOVED***/mousejiggler/releases
+https://github.com/Neutron-0/nMouse-jiggler/releases
 
 The package uses the official MouseJiggler-mainline-x64.zip or MouseJiggler-mainline-arm64.zip
 release artifacts depending on system architecture.
@@ -17,7 +17,7 @@ To verify the downloaded file:
 3. Compare against the checksum value in the chocolateyinstall.ps1 script
 
 Additional verification can be performed by:
-- Checking the package source at https://github.com/***REMOVED***/mousejiggler
+- Checking the package source at https://github.com/Neutron-0/nMouse-jiggler
 - Reviewing the LICENSE file included in the release
 - Verifying the digital signature if provided by the authors
 
@@ -28,8 +28,8 @@ Package Details:
 - Application: MouseJiggler.exe
 - Command-line Shim: mousejiggler (created by Chocolatey)
 - License: See LICENSE file in repository
-- Maintainer: ***REMOVED*** <avatar@***REMOVED***.net>
-- Project URL: https://github.com/***REMOVED***/mousejiggler
+- Maintainer: Neutron <neutron275u@gmail.com>
+- Project URL: https://github.com/Neutron-0/nMouse-jiggler
 
 Architecture Support:
 - Automatic detection of system architecture (x64 or arm64)
