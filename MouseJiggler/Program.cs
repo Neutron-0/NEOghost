@@ -9,7 +9,7 @@
 
 #region using
 
-using ***REMOVED***.MouseJiggler.Properties;
+using Neutron.MouseJiggler.Properties;
 using JetBrains.Annotations;
 using System;
 using System.CommandLine;
@@ -21,7 +21,7 @@ using Windows.Win32;
 
 #endregion
 
-namespace ***REMOVED***.MouseJiggler;
+namespace Neutron.MouseJiggler;
 
 [PublicAPI]
 public static class Program
@@ -38,7 +38,7 @@ public static class Program
     Program.AttachedToConsole = PInvoke.AttachConsole (Helpers.AttachParentProcess);
 
     // Ensure that we are the only instance of the Mouse Jiggler currently running.
-    var instance = new Mutex(false, "single instance: ***REMOVED***.MouseJiggler");
+    var instance = new Mutex(false, "single instance: Neutron.MouseJiggler");
 
     try
     {
