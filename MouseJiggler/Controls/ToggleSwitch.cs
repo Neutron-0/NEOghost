@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace ***REMOVED***.MouseJiggler.Controls;
+namespace Neutron.MouseJiggler.Controls;
 
 internal sealed class ToggleSwitch : Control
 {
@@ -139,3 +139,4 @@ internal sealed class ToggleSwitch : Control
         base.Dispose(disposing);
     }
 }
+
