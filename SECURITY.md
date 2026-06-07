@@ -1,19 +1,25 @@
 # Security Policy
 
-If you discover a security vulnerability in Mouse Jiggler, please report it in a responsible manner.
+Mouse Jiggler is committed to handling vulnerabilities responsibly. If you discover a security issue, please do not open a public GitHub Issue. Instead, report it privately so we can investigate and respond without exposing sensitive details.
 
-## Reporting a vulnerability
+## Reporting a security issue
 
-- Preferred: use GitHub Security Advisories if available.
-- Alternative: send a private email to `neutron275u@gmail.com` with a clear description.
+Report security issues only through the private project contact link below:
+
+- https://github.com/Neutron-0/Mouse-jiggler
+
+This link is the preferred path for confidential communication to the Mouse Jiggler maintainer, Lakshya.
 
 ## What to include
 
-- A description of the issue.
+When submitting a report, include:
+
+- A clear description of the issue.
 - The affected version or commit.
-- Steps to reproduce.
-- Any potential impact or attack vectors.
+- Detailed steps to reproduce the issue.
+- The potential impact or attack vector.
+- Any relevant proof-of-concept code or logs.
 
 ## Response
 
-The repository maintainers will review reports as quickly as possible and respond with remediation guidance.
+Security reports will be reviewed promptly. The maintainer will respond with acknowledgement and guidance for remediation, while keeping the disclosure private until a fix is ready.
