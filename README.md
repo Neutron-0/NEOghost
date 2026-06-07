@@ -1,4 +1,4 @@
-# Mouse Jiggler
+# GhostInput
 
 A focused Windows desktop application that prevents idle detection by gently simulating mouse movement. This repository is intentionally stripped of packaging, deployment, and distribution tooling so it remains clean and centered on the application logic.
 
