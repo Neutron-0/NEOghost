@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace ***REMOVED***.MouseJiggler;
+namespace Neutron.MouseJiggler;
 
 /// <summary>
 /// Specifies the available modes for jiggle behavior.
@@ -13,3 +13,4 @@ public enum JiggleMode
   Circle,
   Linear
 }
+
