@@ -18,7 +18,7 @@ using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
-namespace ***REMOVED***.MouseJiggler;
+namespace Neutron.MouseJiggler;
 
 internal static class Helpers
 {
@@ -142,3 +142,4 @@ internal static class Helpers
 
   #endregion Movement detection
 }
+
