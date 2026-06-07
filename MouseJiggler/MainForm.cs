@@ -9,7 +9,7 @@
 
 #region using
 
-using ***REMOVED***.MouseJiggler.Properties;
+using Neutron.MouseJiggler.Properties;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -21,7 +21,7 @@ using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
-namespace ***REMOVED***.MouseJiggler;
+namespace Neutron.MouseJiggler;
 
 public partial class MainForm : Form
 {
@@ -62,7 +62,6 @@ public partial class MainForm : Form
     this.cmbJiggleMode.SelectedItem = jiggleMode;
     this.cbRandom.Checked = randomTimer;
     this.RespectLockedState = Settings.Default.RespectLockedState;
-    this.cbRespectLockedState.Checked = this.RespectLockedState;
 
     // Validate jigglePeriod before setting it
     if (jigglePeriod >= this.nudPeriod.Minimum && jigglePeriod <= this.nudPeriod.Maximum)
@@ -211,8 +210,6 @@ public partial class MainForm : Form
   }
 
   private void cbRandom_CheckedChanged (object sender, EventArgs e) => this.RandomTimer = this.cbRandom.Checked;
-
-  private void cbRespectLockedState_CheckedChanged (object sender, EventArgs e) => this.RespectLockedState = this.cbRespectLockedState.Checked;
 
   private void nudPeriod_ValueChanged (object sender, EventArgs e) => this.JigglePeriod = (int)this.nudPeriod.Value;
 
@@ -509,3 +506,4 @@ public partial class MainForm : Form
 
   #endregion
 }
+
