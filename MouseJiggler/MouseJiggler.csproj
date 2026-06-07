@@ -35,15 +35,9 @@ Command line options:
   -?, -h, --help - Show help and usage information
   --version - Show version information</Description>
     <Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/***REMOVED***/mousejiggler</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <FileVersion>3.0.0.0</FileVersion>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/***REMOVED***/mousejiggler</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>MouseJiggler</Title>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -98,10 +92,6 @@ Command line options:
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="winget\" />
   </ItemGroup>
 
 </Project>
