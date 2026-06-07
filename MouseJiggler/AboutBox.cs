@@ -2,8 +2,8 @@
 
 // MouseJiggler - AboutBox.cs
 // 
-// Created by: Alistair J R Young (avatar) at 2021/01/22 2:24 PM.
-// Updates by: Dimitris Panokostas (midwan)
+// Maintained by Neutron.
+// Original source has been rebranded and cleaned for this repository.
 
 #endregion
 

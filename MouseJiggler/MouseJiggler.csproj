@@ -11,8 +11,8 @@
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <Authors>Alistair J. R. Young, Dimitris Panokostas</Authors>
-    <Company>Arkane Systems</Company>
+    <Authors>Neutron</Authors>
+    <Company>Neutron</Company>
     <Description>
 A utility to continuously jiggle the mouse pointer to prevent screen saver activation.
 
@@ -34,7 +34,7 @@ Command line options:
   -g, --settings - Start with settings panel displayed.
   -?, -h, --help - Show help and usage information
   --version - Show version information</Description>
-    <Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>
+    <Copyright>Copyright © Neutron 2026</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <FileVersion>3.0.0.0</FileVersion>

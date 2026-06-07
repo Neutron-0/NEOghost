@@ -90,7 +90,7 @@ A scan of the active source and project file identified legacy attribution refer
 ### Notes on the audit
 
 - No active packaging build hooks were found in the current `MouseJiggler.csproj` file.
-- The legacy references are limited to source code headers and passive project metadata.
+- Legacy author references were present in source headers and project metadata but have now been rewritten for this repository.
 - The repository no longer contains Chocolatey or WinGet distribution artifacts.
 
 ## Removed Artifacts

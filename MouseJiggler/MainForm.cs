@@ -2,8 +2,8 @@
 
 // MouseJiggler - MainForm.cs
 // 
-// Created by: Alistair J R Young (avatar) at 2021/01/24 1:57 AM.
-// Updates by: Dimitris Panokostas (midwan)
+// Maintained by Neutron.
+// Original source has been rebranded and cleaned for this repository.
 
 #endregion
 
