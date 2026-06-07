@@ -12,7 +12,11 @@
 using ***REMOVED***.MouseJiggler.Properties;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
@@ -21,6 +25,13 @@ namespace ***REMOVED***.MouseJiggler;
 public partial class MainForm : Form
 {
   private const int MaxNotifyIconTextLength = 63;
+  private const int ToggleJigglingHotKeyId = 1;
+  private const int HotKeyMessage = 0x0312;
+  private const HOT_KEY_MODIFIERS ToggleJigglingHotKeyModifiers = HOT_KEY_MODIFIERS.MOD_CONTROL | HOT_KEY_MODIFIERS.MOD_SHIFT;
+  private const VIRTUAL_KEY ToggleJigglingHotKeyKey = VIRTUAL_KEY.VK_J;
+  private const string ToggleJigglingHotKeyText = "Ctrl+Shift+J";
+
+  private bool _hotKeyRegistered;
 
   /// <summary>
   ///     Constructor for use by the form designer.
@@ -116,6 +127,56 @@ public partial class MainForm : Form
     this.UpdateNotificationAreaText ();
   }
 
+  protected override void OnHandleCreated (EventArgs e)
+  {
+    base.OnHandleCreated (e);
+    this.RegisterToggleJigglingHotKey ();
+  }
+
+  protected override void OnHandleDestroyed (EventArgs e)
+  {
+    this.UnregisterToggleJigglingHotKey ();
+    base.OnHandleDestroyed (e);
+  }
+
+  protected override void WndProc (ref Message m)
+  {
+    if (m.Msg == HotKeyMessage && m.WParam == (IntPtr)ToggleJigglingHotKeyId)
+      this.cbJiggling.Checked = !this.cbJiggling.Checked;
+
+    base.WndProc (ref m);
+  }
+
+  private void RegisterToggleJigglingHotKey ()
+  {
+    if (this._hotKeyRegistered)
+      return;
+
+    this._hotKeyRegistered = PInvoke.RegisterHotKey (new HWND(this.Handle),
+        ToggleJigglingHotKeyId,
+        ToggleJigglingHotKeyModifiers,
+        (uint)ToggleJigglingHotKeyKey);
+
+    if (!this._hotKeyRegistered)
+    {
+      Debugger.Log (1, nameof (MainForm), $"failed to register {ToggleJigglingHotKeyText} hotkey.\n");
+      _ = MessageBox.Show (this,
+          $@"Could not register global hotkey ({ToggleJigglingHotKeyText}). It may already be in use by another application.",
+          @"Mouse Jiggler",
+          MessageBoxButtons.OK,
+          MessageBoxIcon.Warning);
+    }
+  }
+
+  private void UnregisterToggleJigglingHotKey ()
+  {
+    if (!this._hotKeyRegistered)
+      return;
+
+    _ = PInvoke.UnregisterHotKey (new HWND(this.Handle), ToggleJigglingHotKeyId);
+    this._hotKeyRegistered = false;
+  }
+
   #region Property synchronization
 
   private void btnSettings_Click (object sender, EventArgs e) => this.panelSettings.Visible = !this.panelSettings.Visible;
@@ -162,6 +223,7 @@ public partial class MainForm : Form
     this.jiggleTimer.Enabled = this.cbJiggling.Checked;
     this.UpdateStatusIndicator ();
     this.UpdateTrayMenu ();
+    this.UpdateNotificationAreaText ();
   }
 
   private void UpdateTrayMenu ()
