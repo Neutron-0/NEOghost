@@ -100,7 +100,16 @@ Once the setup finishes, launch the software using your new Start Menu entry or 
 * Use the global hotkey shortcut **`Ctrl+Shift+J`** to toggle mouse simulation states cleanly.
 * Minimize the control dashboard interface directly to your system tray boundary layer to keep it running silently in the background.
 
-## Known Issues
+## Bug Analysis and Defect Narrative
+
+  a small bug in code
+          \ /
+          oVo
+      \___XXX___/
+       __XXXXX__
+      /__XXXXX__\
+      /   XXX   \
+           V
 
 This project has been reviewed for common runtime and UX issues. The following potential bugs and limitations were identified:
 
