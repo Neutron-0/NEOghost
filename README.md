@@ -102,14 +102,14 @@ Once the setup finishes, launch the software using your new Start Menu entry or 
 
 ## Bug Analysis and Defect Narrative
 
-  a small bug in code
-          \ /
-          oVo
-      \___XXX___/
-       __XXXXX__
-      /__XXXXX__\
-      /   XXX   \
-           V
+                      a small bug in code
+                              \ /
+                              oVo
+                          \___XXX___/
+                           __XXXXX__
+                          /__XXXXX__\
+                          /   XXX   \
+                               V
 
 This project has been reviewed for common runtime and UX issues. The following potential bugs and limitations were identified:
 
