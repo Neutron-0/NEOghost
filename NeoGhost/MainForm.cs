@@ -1,4 +1,4 @@
-#region header
+﻿#region header
 
 // MouseJiggler - MainForm.cs
 // 
@@ -9,7 +9,7 @@
 
 #region using
 
-using Neutron.MouseJiggler.Properties;
+using NeoGhost.Properties;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -21,7 +21,7 @@ using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
-namespace Neutron.MouseJiggler;
+namespace NeoGhost;
 
 public partial class MainForm : Form
 {
@@ -114,7 +114,7 @@ public partial class MainForm : Form
     {
       var mode = this.JiggleMode.ToString ();
       var rnd = this.RandomTimer ? $@" with random variation," : string.Empty;
-      var text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Δ {this.JiggleDistance}).";
+      var text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Î” {this.JiggleDistance}).";
       this.niTray.Text = text.Length > MaxNotifyIconTextLength ? text[..(MaxNotifyIconTextLength - 3)] + "..." : text;
     }
   }
@@ -172,7 +172,7 @@ public partial class MainForm : Form
       Debugger.Log (1, nameof (MainForm), $"failed to register {ToggleJigglingHotKeyText} hotkey.\n");
       _ = MessageBox.Show (this,
           $@"Could not register global hotkey ({ToggleJigglingHotKeyText}). It may already be in use by another application.",
-          @"Mouse Jiggler",
+          @"NEOghost",
           MessageBoxButtons.OK,
           MessageBoxIcon.Warning);
     }

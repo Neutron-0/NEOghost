@@ -1,6 +1,14 @@
-# Contributing to Mouse Jiggler
+﻿# Contributing to NEOghost
 
-Thank you for taking an interest in contributing to Mouse Jiggler.
+Thank you for taking an interest in contributing to NEOghost.
+
+## Before you contribute
+
+Please review the projectâ€™s root compliance documents before opening issues or pull requests:
+
+- `CODE_OF_CONDUCT.md` â€” contributor behavior expectations.
+- `SECURITY.md` â€” private vulnerability reporting guidelines.
+- `LICENSE` / `LICENSE.txt` â€” project licensing and distribution terms.
 
 ## How to contribute
 
@@ -18,7 +26,7 @@ Thank you for taking an interest in contributing to Mouse Jiggler.
 
 ## Testing
 
-- Build the project using `dotnet build MouseJiggler\MouseJiggler.csproj -c Release`.
+- Build the project using `dotnet build NeoGhost\NeoGhost.csproj -c Release`.
 - Test the UI paths manually if your change affects settings, hotkeys, or tray behavior.
 - Verify that command-line options still parse correctly.
 

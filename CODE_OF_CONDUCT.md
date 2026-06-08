@@ -1,8 +1,8 @@
-# Contributor Covenant Code of Conduct
+﻿# Contributor Covenant Code of Conduct
 
 ## Our Pledge
 
-In the interest of fostering an open and welcoming community, we pledge to make participation in the Mouse Jiggler project a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+In the interest of fostering an open and welcoming community, we pledge to make participation in the NEOghost project a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 ## Our Standards
 
@@ -11,7 +11,7 @@ Examples of behavior that contributes to a positive environment for our communit
 - Demonstrating empathy and kindness toward other people.
 - Being respectful in speech and actions.
 - Accepting constructive criticism gracefully.
-- Focusing on what is best for the Mouse Jiggler project.
+- Focusing on what is best for the NEOghost project.
 - Showing courtesy and respect to all participants.
 
 Examples of unacceptable behavior by participants include:
@@ -28,7 +28,7 @@ Project maintainers are responsible for clarifying standards of acceptable behav
 
 ## Scope
 
-This Code of Conduct applies both within project spaces and in public spaces when an individual is representing the Mouse Jiggler project. Examples of representing the project include using an official project email address, posting via an official social media account, or acting as an appointed representative in online or offline events.
+This Code of Conduct applies both within project spaces and in public spaces when an individual is representing the NEOghost project. Examples of representing the project include using an official project email address, posting via an official social media account, or acting as an appointed representative in online or offline events.
 
 ## Reporting
 
@@ -36,7 +36,7 @@ If you experience or witness behavior that violates this Code of Conduct, please
 
 - https://github.com/Neutron-0/Mouse-jiggler
 
-Reports may also be submitted through the repository’s private contact options on that GitHub profile.
+Reports may also be submitted through the repositoryâ€™s private contact options on that GitHub profile.
 
 ## Enforcement
 

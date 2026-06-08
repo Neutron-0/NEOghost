@@ -9,7 +9,7 @@
 
 #region using
 
-using Neutron.MouseJiggler.Properties;
+using NeoGhost.Properties;
 using JetBrains.Annotations;
 using System;
 using System.CommandLine;
@@ -21,7 +21,7 @@ using Windows.Win32;
 
 #endregion
 
-namespace Neutron.MouseJiggler;
+namespace NeoGhost;
 
 [PublicAPI]
 public static class Program
@@ -37,8 +37,8 @@ public static class Program
     // Attach to the parent process's console so we can display help, version information, and command-line errors.
     Program.AttachedToConsole = PInvoke.AttachConsole (Helpers.AttachParentProcess);
 
-    // Ensure that we are the only instance of the Mouse Jiggler currently running.
-    var instance = new Mutex(false, "single instance: Neutron.MouseJiggler");
+    // Ensure that we are the only instance of the NEOghost currently running.
+    var instance = new Mutex(false, "single instance: NeoGhost");
 
     try
     {
@@ -50,7 +50,7 @@ public static class Program
       }
       else
       {
-        Console.WriteLine (@"Mouse Jiggler is already running. Aborting.");
+        Console.WriteLine (@"[NEOghost Engine] is already running. Aborting.");
 
         return 1;
       }

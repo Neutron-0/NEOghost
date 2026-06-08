@@ -1,4 +1,4 @@
-#region header
+﻿#region header
 
 // MouseJiggler - Helpers.cs
 // 
@@ -18,7 +18,7 @@ using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 #endregion
 
-namespace Neutron.MouseJiggler;
+namespace NeoGhost;
 
 internal static class Helpers
 {

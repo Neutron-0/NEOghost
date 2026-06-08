@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Neutron.MouseJiggler;
+namespace NeoGhost;
 
 /// <summary>
 /// Specifies the available modes for jiggle behavior.

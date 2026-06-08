@@ -1,4 +1,4 @@
-namespace Neutron.MouseJiggler
+﻿namespace NeoGhost
 {
   partial class MainForm
   {
@@ -37,7 +37,7 @@ namespace Neutron.MouseJiggler
       // Jiggle toggle row
       this.panelBase      = new System.Windows.Forms.Panel ();
       this.lblJiggleTitle = new System.Windows.Forms.Label ();
-      this.cbJiggling     = new Neutron.MouseJiggler.Controls.ToggleSwitch ();
+      this.cbJiggling     = new NeoGhost.Controls.ToggleSwitch ();
 
       // Action buttons
       this.panelActions = new System.Windows.Forms.Panel ();
@@ -51,14 +51,14 @@ namespace Neutron.MouseJiggler
       this.lblModeTitle     = new System.Windows.Forms.Label ();
       this.cmbJiggleMode    = new System.Windows.Forms.ComboBox ();
       this.lblRandomTitle   = new System.Windows.Forms.Label ();
-      this.cbRandom         = new Neutron.MouseJiggler.Controls.ToggleSwitch ();
+      this.cbRandom         = new NeoGhost.Controls.ToggleSwitch ();
       this.lblPeriodLabel   = new System.Windows.Forms.Label ();
       this.nudPeriod        = new System.Windows.Forms.NumericUpDown ();
       this.lbPeriod         = new System.Windows.Forms.Label ();
       this.lblDistanceLabel = new System.Windows.Forms.Label ();
       this.nudDistance      = new System.Windows.Forms.NumericUpDown ();
       this.lblMinimizeTitle = new System.Windows.Forms.Label ();
-      this.cbMinimize       = new Neutron.MouseJiggler.Controls.ToggleSwitch ();
+      this.cbMinimize       = new NeoGhost.Controls.ToggleSwitch ();
 
       this.flpLayout.SuspendLayout ();
       this.panelHeader.SuspendLayout ();
@@ -70,11 +70,11 @@ namespace Neutron.MouseJiggler
       this.trayMenu.SuspendLayout ();
       this.SuspendLayout ();
 
-      // ── jiggleTimer ─────────────────────────────────────────────────────────
+      // â”€â”€ jiggleTimer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.jiggleTimer.Interval = 1000;
       this.jiggleTimer.Tick    += this.jiggleTimer_Tick;
 
-      // ── trayMenu ────────────────────────────────────────────────────────────
+      // â”€â”€ trayMenu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.trayMenu.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
       this.trayMenu.ForeColor = System.Drawing.Color.FromArgb (203, 213, 225);
       this.trayMenu.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
@@ -98,13 +98,13 @@ namespace Neutron.MouseJiggler
       this.tsmiExit.Text   = "Exit";
       this.tsmiExit.Click += this.trayMenu_ClickExit;
 
-      // ── niTray ──────────────────────────────────────────────────────────────
+      // â”€â”€ niTray â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.niTray.ContextMenuStrip = this.trayMenu;
       this.niTray.Icon             = (System.Drawing.Icon) resources.GetObject ("niTray.Icon");
-      this.niTray.Text             = "Mouse Jiggler";
+      this.niTray.Text             = "NEOghost";
       this.niTray.DoubleClick     += this.niTray_DoubleClick;
 
-      // ── flpLayout ───────────────────────────────────────────────────────────
+      // â”€â”€ flpLayout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.flpLayout.AutoSize      = true;
       this.flpLayout.AutoSizeMode  = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
       this.flpLayout.BackColor     = System.Drawing.Color.FromArgb (8, 12, 20);
@@ -122,7 +122,7 @@ namespace Neutron.MouseJiggler
       this.flpLayout.TabIndex      = 0;
       this.flpLayout.WrapContents  = false;
 
-      // ── panelHeader (420 × 76) ───────────────────────────────────────────────
+      // â”€â”€ panelHeader (420 Ã— 76) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.panelHeader.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
       this.panelHeader.Controls.Add (this.lblLogo);
       this.panelHeader.Controls.Add (this.lblAppName);
@@ -142,7 +142,7 @@ namespace Neutron.MouseJiggler
       this.lblLogo.Location  = new System.Drawing.Point (14, 16);
       this.lblLogo.Name      = "lblLogo";
       this.lblLogo.Size      = new System.Drawing.Size (44, 44);
-      this.lblLogo.Text      = "🖱";
+      this.lblLogo.Text      = "ðŸ–±";
       this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
       this.lblAppName.AutoSize  = false;
@@ -152,7 +152,7 @@ namespace Neutron.MouseJiggler
       this.lblAppName.Location  = new System.Drawing.Point (64, 12);
       this.lblAppName.Name      = "lblAppName";
       this.lblAppName.Size      = new System.Drawing.Size (240, 28);
-      this.lblAppName.Text      = "MOUSE JIGGLER";
+      this.lblAppName.Text      = "NEOghost";
 
       this.lblSubtitle.AutoSize  = false;
       this.lblSubtitle.BackColor = System.Drawing.Color.Transparent;
@@ -163,7 +163,7 @@ namespace Neutron.MouseJiggler
       this.lblSubtitle.Size      = new System.Drawing.Size (200, 18);
       this.lblSubtitle.Text      = "prevent screen sleep";
 
-      // status indicator dot (20 × 20, custom-painted)
+      // status indicator dot (20 Ã— 20, custom-painted)
       this.pnlIndicator.BackColor = System.Drawing.Color.Transparent;
       this.pnlIndicator.Location  = new System.Drawing.Point (378, 24);
       this.pnlIndicator.Name      = "pnlIndicator";
@@ -181,7 +181,7 @@ namespace Neutron.MouseJiggler
       this.lblStatusText.Text      = "IDLE";
       this.lblStatusText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 
-      // ── panelBase — jiggle toggle row (420 × 88) ────────────────────────────
+      // â”€â”€ panelBase â€” jiggle toggle row (420 Ã— 88) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.panelBase.BackColor = System.Drawing.Color.FromArgb (8, 12, 20);
       this.panelBase.Controls.Add (this.lblJiggleTitle);
       this.panelBase.Controls.Add (this.cbJiggling);
@@ -205,7 +205,7 @@ namespace Neutron.MouseJiggler
       this.cbJiggling.TabIndex       = 0;
       this.cbJiggling.CheckedChanged += this.cbJiggling_CheckedChanged;
 
-      // ── panelActions (420 × 52) ──────────────────────────────────────────────
+      // â”€â”€ panelActions (420 Ã— 52) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.panelActions.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
       this.panelActions.Controls.Add (this.btnSettings);
       this.panelActions.Controls.Add (this.cmdAbout);
@@ -226,7 +226,7 @@ namespace Neutron.MouseJiggler
       this.btnSettings.Name                              = "btnSettings";
       this.btnSettings.Size                              = new System.Drawing.Size (126, 36);
       this.btnSettings.TabIndex                          = 1;
-      this.btnSettings.Text                              = "⚙  SETTINGS";
+      this.btnSettings.Text                              = "âš™  SETTINGS";
       this.btnSettings.UseVisualStyleBackColor           = false;
       this.btnSettings.Click                            += this.btnSettings_Click;
 
@@ -241,7 +241,7 @@ namespace Neutron.MouseJiggler
       this.cmdAbout.Name                              = "cmdAbout";
       this.cmdAbout.Size                              = new System.Drawing.Size (126, 36);
       this.cmdAbout.TabIndex                          = 2;
-      this.cmdAbout.Text                              = "◌  ABOUT";
+      this.cmdAbout.Text                              = "â—Œ  ABOUT";
       this.cmdAbout.UseVisualStyleBackColor           = false;
       this.cmdAbout.Click                            += this.cmdAbout_Click;
 
@@ -256,11 +256,11 @@ namespace Neutron.MouseJiggler
       this.cmdTrayify.Name                              = "cmdTrayify";
       this.cmdTrayify.Size                              = new System.Drawing.Size (124, 36);
       this.cmdTrayify.TabIndex                          = 3;
-      this.cmdTrayify.Text                              = "⬇  TRAY";
+      this.cmdTrayify.Text                              = "â¬‡  TRAY";
       this.cmdTrayify.UseVisualStyleBackColor           = false;
       this.cmdTrayify.Click                            += this.cmdTrayify_Click;
 
-      // ── panelSettings (420 × 240) ────────────────────────────────────────────
+      // â”€â”€ panelSettings (420 Ã— 240) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.panelSettings.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
       this.panelSettings.Controls.Add (this.pnlSeparator);
       this.panelSettings.Controls.Add (this.lblModeTitle);
@@ -287,7 +287,7 @@ namespace Neutron.MouseJiggler
       this.pnlSeparator.Size      = new System.Drawing.Size (420, 1);
       this.pnlSeparator.TabStop   = false;
 
-      // row 1 — jiggle mode (y = 16)
+      // row 1 â€” jiggle mode (y = 16)
       this.lblModeTitle.AutoSize  = false;
       this.lblModeTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblModeTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -308,7 +308,7 @@ namespace Neutron.MouseJiggler
       this.cmbJiggleMode.TabIndex          = 0;
       this.cmbJiggleMode.SelectedIndexChanged += this.cmbJiggleMode_SelectedIndexChanged;
 
-      // row 2 — random timer (y = 60)
+      // row 2 â€” random timer (y = 60)
       this.lblRandomTitle.AutoSize  = false;
       this.lblRandomTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblRandomTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -324,7 +324,7 @@ namespace Neutron.MouseJiggler
       this.cbRandom.TabIndex       = 1;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
 
-      // row 3 — interval (y = 104)
+      // row 3 â€” interval (y = 104)
       this.lblPeriodLabel.AutoSize  = false;
       this.lblPeriodLabel.BackColor = System.Drawing.Color.Transparent;
       this.lblPeriodLabel.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -347,7 +347,7 @@ namespace Neutron.MouseJiggler
       this.nudPeriod.Value       = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudPeriod.ValueChanged += this.nudPeriod_ValueChanged;
 
-      // lbPeriod — shows current effective interval (updated by random mode)
+      // lbPeriod â€” shows current effective interval (updated by random mode)
       this.lbPeriod.AutoSize  = false;
       this.lbPeriod.BackColor = System.Drawing.Color.Transparent;
       this.lbPeriod.Font      = new System.Drawing.Font ("Segoe UI", 8.5F, System.Drawing.FontStyle.Italic);
@@ -358,7 +358,7 @@ namespace Neutron.MouseJiggler
       this.lbPeriod.Text      = "1 s";
       this.lbPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 
-      // row 4 — distance (y = 148)
+      // row 4 â€” distance (y = 148)
       this.lblDistanceLabel.AutoSize  = false;
       this.lblDistanceLabel.BackColor = System.Drawing.Color.Transparent;
       this.lblDistanceLabel.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -381,7 +381,7 @@ namespace Neutron.MouseJiggler
       this.nudDistance.Value       = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudDistance.ValueChanged += this.nudDistance_ValueChanged;
 
-      // row 5 — minimize on start (y = 196)
+      // row 5 â€” minimize on start (y = 196)
       this.lblMinimizeTitle.AutoSize  = false;
       this.lblMinimizeTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblMinimizeTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -397,7 +397,7 @@ namespace Neutron.MouseJiggler
       this.cbMinimize.TabIndex       = 7;
       this.cbMinimize.CheckedChanged += this.cbMinimize_CheckedChanged;
 
-      // ── MainForm ─────────────────────────────────────────────────────────────
+      // â”€â”€ MainForm â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       this.AutoScaleDimensions = new System.Drawing.SizeF (7F, 15F);
       this.AutoScaleMode       = System.Windows.Forms.AutoScaleMode.Font;
       this.AutoSize            = true;
@@ -412,7 +412,7 @@ namespace Neutron.MouseJiggler
       this.MaximizeBox         = false;
       this.MinimizeBox         = false;
       this.Name                = "MainForm";
-      this.Text                = "Mouse Jiggler";
+      this.Text                = "NEOghost";
       this.Load               += this.MainForm_Load;
       this.Shown              += this.MainForm_Shown;
 
@@ -430,7 +430,7 @@ namespace Neutron.MouseJiggler
       this.PerformLayout ();
     }
 
-    // ── Field declarations ─────────────────────────────────────────────────────
+    // â”€â”€ Field declarations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private System.Windows.Forms.Timer                        jiggleTimer;
     private System.Windows.Forms.FlowLayoutPanel             flpLayout;
 
@@ -443,7 +443,7 @@ namespace Neutron.MouseJiggler
 
     private System.Windows.Forms.Panel                       panelBase;
     private System.Windows.Forms.Label                       lblJiggleTitle;
-    private Neutron.MouseJiggler.Controls.ToggleSwitch cbJiggling;
+    private NeoGhost.Controls.ToggleSwitch cbJiggling;
 
     private System.Windows.Forms.Panel                       panelActions;
     private System.Windows.Forms.Button                      btnSettings;
@@ -455,14 +455,14 @@ namespace Neutron.MouseJiggler
     private System.Windows.Forms.Label                       lblModeTitle;
     private System.Windows.Forms.ComboBox                    cmbJiggleMode;
     private System.Windows.Forms.Label                       lblRandomTitle;
-    private Neutron.MouseJiggler.Controls.ToggleSwitch cbRandom;
+    private NeoGhost.Controls.ToggleSwitch cbRandom;
     private System.Windows.Forms.Label                       lblPeriodLabel;
     private System.Windows.Forms.NumericUpDown               nudPeriod;
     private System.Windows.Forms.Label                       lbPeriod;
     private System.Windows.Forms.Label                       lblDistanceLabel;
     private System.Windows.Forms.NumericUpDown               nudDistance;
     private System.Windows.Forms.Label                       lblMinimizeTitle;
-    private Neutron.MouseJiggler.Controls.ToggleSwitch cbMinimize;
+    private NeoGhost.Controls.ToggleSwitch cbMinimize;
 
     private System.Windows.Forms.NotifyIcon                  niTray;
     private System.Windows.Forms.ContextMenuStrip            trayMenu;

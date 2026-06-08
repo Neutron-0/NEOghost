@@ -1,28 +1,30 @@
-# GhostInput
+# NEOghost
 
-A focused Windows desktop application that prevents idle detection by gently simulating mouse movement. This repository is intentionally stripped of packaging, deployment, and distribution tooling so it remains clean and centered on the application logic.
+Welcome to **NEOghost** — a premium, stealth-focused Windows desktop utility engineered to seamlessly prevent system idle detection. Designed for professionals who demand uninterrupted execution, NEOghost intelligently simulates organic mouse movement through a lightweight, ultra-reliable engine. 
+
+Experience absolute control without the bloat.
 
 **License:** MIT
 
 ## Project Context
 
-`MouseJiggler` is a Windows Forms application targeting .NET 10 (`net10.0-windows10.0.17763.0`). It is built to run as a single instance, with both a user interface and command-line support.
+`NeoGhost` is a Windows Forms application targeting .NET 10 (`net10.0-windows10.0.17763.0`). It is built to run as a single instance, with both a user interface and command-line support.
 
-The primary application behavior is implemented in the `MouseJiggler/` folder, while supporting runtime settings and persistence are handled through the `Properties` folder.
+The primary application behavior is implemented in the `NeoGhost/` folder, while supporting runtime settings and persistence are handled through the `Properties` folder.
 
 ### What this repository currently contains
 
-- `MouseJiggler/Program.cs`: startup flow, command line parsing, single-instance enforcement, and console attachment for help output.
-- `MouseJiggler/MainForm.cs`: settings UI, tray icon integration, hotkey registration, and jiggling state management.
-- `MouseJiggler/JiggleMode.cs`: available jiggle modes.
-- `MouseJiggler/JigglePatterns.cs`: jiggle motion algorithms.
-- `MouseJiggler/Helpers.cs`: shared helpers and platform interop.
-- `MouseJiggler/Properties/Settings.settings`: persisted user preferences.
-- `MouseJiggler/MouseJiggler.csproj`: project file for the Windows Forms application.
+- `NeoGhost/Program.cs`: startup flow, command line parsing, single-instance enforcement, and console attachment for help output.
+- `NeoGhost/MainForm.cs`: settings UI, tray icon integration, hotkey registration, and jiggling state management.
+- `NeoGhost/JiggleMode.cs`: available jiggle modes.
+- `NeoGhost/JigglePatterns.cs`: jiggle motion algorithms.
+- `NeoGhost/Helpers.cs`: shared helpers and platform interop.
+- `NeoGhost/Properties/Settings.settings`: persisted user preferences.
+- `NeoGhost/NeoGhost.csproj`: project file for the Windows Forms application.
 
 ## Application Behavior
 
-`MouseJiggler` works by periodically generating mouse input to prevent idle detection and screen saver activation.
+`NeoGhost` works by periodically generating mouse input to prevent idle detection and screen saver activation.
 
 Key runtime behaviors:
 
@@ -38,18 +40,18 @@ Key runtime behaviors:
 
 The application supports these options:
 
-- `-j`, `--jiggle` — start in jiggle mode.
-- `-m`, `--minimized` — start minimized.
-- `-o`, `--mode <Circle|Linear|Normal|Zen>` — choose the jiggle mode.
-- `-r`, `--random` — enable random variation.
-- `-s`, `--seconds <seconds>` — set the jiggle interval.
-- `-d`, `--distance <distance>` — set the movement distance multiplier.
-- `-g`, `--settings` — show the settings panel on startup.
+- `-j`, `--jiggle` â€” start in jiggle mode.
+- `-m`, `--minimized` â€” start minimized.
+- `-o`, `--mode <Circle|Linear|Normal|Zen>` â€” choose the jiggle mode.
+- `-r`, `--random` â€” enable random variation.
+- `-s`, `--seconds <seconds>` â€” set the jiggle interval.
+- `-d`, `--distance <distance>` â€” set the movement distance multiplier.
+- `-g`, `--settings` â€” show the settings panel on startup.
 
 Example:
 
 ```powershell
-MouseJiggler.exe --jiggle --mode Zen --seconds 30 --distance 2 --minimized
+NeoGhost.exe --jiggle --mode Zen --seconds 30 --distance 2 --minimized
 ```
 
 ## Build Instructions
@@ -63,33 +65,33 @@ MouseJiggler.exe --jiggle --mode Zen --seconds 30 --distance 2 --minimized
 
 ```powershell
 cd "C:\Users\Lakshya\Documents\Downloads\Mouse-jiggler"
-dotnet build MouseJiggler\MouseJiggler.csproj -c Release
+dotnet build NeoGhost\NeoGhost.csproj -c Release
 ```
 
 ### Open in Visual Studio
 
-Open `MouseJiggler\MouseJiggler.sln` and build the solution.
+Open `NeoGhost\NeoGhost.sln` and build the solution.
 
-## 📥 Installation Guide
+## ðŸ“¥ Installation Guide
 
-Get up and running with Mouse Jiggler in just a few clicks!
+Get up and running with NEOghost in just a few clicks!
 
 ### Step 1: Download the Installer
 Click the badge below to jump directly to our latest official stable deployment pipeline and grab the setup file:
 
-[![Download Mouse Jiggler](https://img.shields.io/badge/Download-Latest%20__Setup.exe-brightgreen?style=for-the-badge&logo=windows)](https://github.com/Neutron-0/Mouse-jiggler/releases/latest)
+[![Download NEOghost](https://img.shields.io/badge/Download-Latest%20__Setup.exe-brightgreen?style=for-the-badge&logo=windows)](https://github.com/Neutron-0/Mouse-jiggler/releases/latest)
 
-*(Alternatively, navigate to the **[Releases](https://github.com/Neutron-0/Mouse-jiggler/releases)** sidebar layout on the right side of this repository page and select `MouseJiggler_Setup.exe` from the assets container.)*
+*(Alternatively, navigate to the **[Releases](https://github.com/Neutron-0/Mouse-jiggler/releases)** sidebar layout on the right side of this repository page and select `NeoGhost_Setup.exe` from the assets container.)*
 
 ---
 
 ### Step 2: Run the Setup Wizard
-1. Locate the downloaded **`MouseJiggler_Setup.exe`** file on your computer and double-click it to launch.
+1. Locate the downloaded **`NeoGhost_Setup.exe`** file on your computer and double-click it to launch.
 2. Enter the installation passphrase when prompted: **`Neutron-0`**
 3. Follow the clean, modern dark setup installation wizard instructions.
 4. *(Optional)* Check the box to generate a **Desktop Shortcut** for rapid system access.
 
-> ⚠️ **Note on Windows SmartScreen / UAC:** 
+> âš ï¸ **Note on Windows SmartScreen / UAC:** 
 > Because this is an independent, open-source portfolio utility, the installer binary is not digitally signed with a commercial Windows Developer Certificate. When launching the installer, Windows may display a **"Publisher: Unknown"** security notification. You can safely click **"More Info"** and then select **"Run Anyway"** to proceed with the native installation.
 
 ---
@@ -117,7 +119,7 @@ This project has been reviewed for common runtime and UX issues. The following p
 - `Zen` mode may not reliably prevent idle detection in every Windows environment or in all applications. It is a best-effort mode that may fail under some screen saver or idle-monitoring implementations.
 - The application is built as a framework-dependent executable (`SelfContained=false`), so the target machine must have the correct .NET 10 runtime installed for the release build to launch.
 - The UI currently persists the `RespectLockedState` setting in user settings, but the corresponding control may not be visible or available in every build configuration, making it harder to change that behavior from the app.
-- Invalid or corrupted `MouseJiggler.dll.config` content will prevent startup entirely. The installer should preserve the runtime configuration file and avoid manual edits to it.
+- Invalid or corrupted `NeoGhost.dll.config` content will prevent startup entirely. The installer should preserve the runtime configuration file and avoid manual edits to it.
 
 ## Project Audit: Past Author References
 
@@ -125,22 +127,22 @@ A scan of the active source and project file identified legacy attribution refer
 
 ### Files containing past author metadata
 
-- `MouseJiggler/Program.cs`
+- `NeoGhost/Program.cs`
   - `// Updates by: Dimitris Panokostas (midwan)`
-- `MouseJiggler/MainForm.cs`
+- `NeoGhost/MainForm.cs`
   - `// Updates by: Dimitris Panokostas (midwan)`
-- `MouseJiggler/Helpers.cs`
+- `NeoGhost/Helpers.cs`
   - `// Updates by: Dimitris Panokostas (midwan)`
-- `MouseJiggler/AboutBox.cs`
+- `NeoGhost/AboutBox.cs`
   - `// Updates by: Dimitris Panokostas (midwan)`
-- `MouseJiggler/MouseJiggler.csproj`
+- `NeoGhost/NeoGhost.csproj`
   - `<Authors>Alistair J. R. Young, Dimitris Panokostas</Authors>`
   - `<Company>Arkane Systems</Company>`
-  - `<Copyright>Copyright © Alistair J. R. Young 2007-2026</Copyright>`
+  - `<Copyright>Copyright Â© Alistair J. R. Young 2007-2026</Copyright>`
 
 ### Notes on the audit
 
-- No active packaging build hooks were found in the current `MouseJiggler.csproj` file.
+- No active packaging build hooks were found in the current `NeoGhost.csproj` file.
 - Legacy author references were present in source headers and project metadata but have now been rewritten for this repository.
 - The repository no longer contains Chocolatey or WinGet distribution artifacts.
 
@@ -148,22 +150,22 @@ A scan of the active source and project file identified legacy attribution refer
 
 The following packaging and distribution files were deleted from the repository:
 
-- `MouseJiggler/choco/mousejiggler.nuspec`
-- `MouseJiggler/choco/tools/chocolateyinstall.ps1`
-- `MouseJiggler/choco/tools/chocolateyuninstall.ps1`
-- `MouseJiggler/choco/tools/VERIFICATION.txt`
-- `MouseJiggler/winget/ArkaneSystems.MouseJiggler.yaml`
-- `MouseJiggler/winget/ArkaneSystems.MouseJiggler.locale.en-US.yaml`
-- `MouseJiggler/winget/ArkaneSystems.MouseJiggler.installer.yaml`
+- `NeoGhost/choco/NeoGhost.nuspec`
+- `NeoGhost/choco/tools/chocolateyinstall.ps1`
+- `NeoGhost/choco/tools/chocolateyuninstall.ps1`
+- `NeoGhost/choco/tools/VERIFICATION.txt`
+- `NeoGhost/winget/ArkaneSystems.NeoGhost.yaml`
+- `NeoGhost/winget/ArkaneSystems.NeoGhost.locale.en-US.yaml`
+- `NeoGhost/winget/ArkaneSystems.NeoGhost.installer.yaml`
 
 ## Repository Standards
 
 This repository now includes the common files expected by modern open source projects:
 
-- `CONTRIBUTING.md` — contribution guidelines and workflow expectations.
-- `CODE_OF_CONDUCT.md` — community standards for collaboration.
-- `SECURITY.md` — secure reporting guidance for vulnerabilities.
-- `LICENSE` — the current source license for this project.
+- `CONTRIBUTING.md` â€” contribution guidelines and workflow expectations.
+- `CODE_OF_CONDUCT.md` â€” community standards for collaboration.
+- `SECURITY.md` â€” secure reporting guidance for vulnerabilities.
+- `LICENSE` â€” the current source license for this project.
 
 ### Current License
 

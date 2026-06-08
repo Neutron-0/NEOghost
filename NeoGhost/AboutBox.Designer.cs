@@ -1,5 +1,5 @@
-
-namespace Neutron.MouseJiggler
+﻿
+namespace NeoGhost
 {
     sealed partial class AboutBox
     {

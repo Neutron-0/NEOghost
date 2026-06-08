@@ -1,4 +1,4 @@
-namespace Neutron.MouseJiggler;
+﻿namespace NeoGhost;
 
 internal static class JigglePatterns
 {

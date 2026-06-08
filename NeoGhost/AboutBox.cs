@@ -1,4 +1,4 @@
-#region header
+﻿#region header
 
 // MouseJiggler - AboutBox.cs
 // 
@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace Neutron.MouseJiggler;
+namespace NeoGhost;
 
 public sealed partial class AboutBox : Form
 {
