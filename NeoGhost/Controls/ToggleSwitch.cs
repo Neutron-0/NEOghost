@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -12,9 +12,10 @@ internal sealed class ToggleSwitch : Control
     private float _animPos;
     private readonly System.Windows.Forms.Timer _animTimer;
 
-    private static readonly Color ColorOnTrack  = Color.FromArgb(0,   212, 255);
-    private static readonly Color ColorOffTrack = Color.FromArgb(45,  55,  72);
-    private static readonly Color ColorThumb    = Color.FromArgb(240, 248, 255);
+    private static readonly Color ColorOnTrack   = Color.FromArgb(82,  82,  91);
+    private static readonly Color ColorOffTrack  = Color.FromArgb(39,  39,  42);
+    private static readonly Color ColorThumbOn   = Color.White;
+    private static readonly Color ColorThumbOff  = Color.FromArgb(161, 161, 170);
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Checked
@@ -74,6 +75,7 @@ internal sealed class ToggleSwitch : Control
         var g = e.Graphics;
         g.SmoothingMode   = SmoothingMode.AntiAlias;
         g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
         int   w      = Width;
         int   h      = Height;
@@ -88,7 +90,7 @@ internal sealed class ToggleSwitch : Control
 
         if (_animPos > 0.05f)
         {
-            using var glowPen = new Pen(Color.FromArgb((int)(65 * _animPos), ColorOnTrack), 2f);
+            using var glowPen = new Pen(Color.FromArgb((int)(30 * _animPos), ColorOnTrack), 2f);
             DrawRoundRect(g, glowPen, 1, 1, w - 2, h - 2, r - 1);
         }
 
@@ -96,7 +98,8 @@ internal sealed class ToggleSwitch : Control
         using (var shadow = new SolidBrush(Color.FromArgb(50, 0, 0, 0)))
             g.FillEllipse(shadow, tx + 1f, pad + 1f, tDia, tDia);
 
-        using (var thumb = new SolidBrush(ColorThumb))
+        Color thumbColor = LerpColor(ColorThumbOff, ColorThumbOn, _animPos);
+        using (var thumb = new SolidBrush(thumbColor))
             g.FillEllipse(thumb, tx, pad, tDia, tDia);
     }
 

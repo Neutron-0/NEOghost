@@ -1,4 +1,4 @@
-# NEOghost
+﻿# NEOghost
 
 Welcome to **NEOghost** — a premium, stealth-focused Windows desktop utility engineered to seamlessly prevent system idle detection. Designed for professionals who demand uninterrupted execution, NEOghost intelligently simulates organic mouse movement through a lightweight, ultra-reliable engine. 
 
@@ -40,13 +40,14 @@ Key runtime behaviors:
 
 The application supports these options:
 
-- `-j`, `--jiggle` â€” start in jiggle mode.
-- `-m`, `--minimized` â€” start minimized.
-- `-o`, `--mode <Circle|Linear|Normal|Zen>` â€” choose the jiggle mode.
-- `-r`, `--random` â€” enable random variation.
-- `-s`, `--seconds <seconds>` â€” set the jiggle interval.
-- `-d`, `--distance <distance>` â€” set the movement distance multiplier.
-- `-g`, `--settings` â€” show the settings panel on startup.
+- `-j`, `--jiggle` — start in jiggle mode.
+- `-m`, `--minimized` — start minimized.
+- `-o`, `--mode <Circle|Linear|Normal|Zen>` — choose the jiggle mode.
+- `-r`, `--random` — enable random variation.
+- `-s`, `--seconds <seconds>` — set the jiggle interval.
+- `-d`, `--distance <distance>` — set the movement distance multiplier.
+- `-g`, `--settings` — show the settings panel on startup.
+
 
 Example:
 
@@ -72,7 +73,7 @@ dotnet build NeoGhost\NeoGhost.csproj -c Release
 
 Open `NeoGhost\NeoGhost.sln` and build the solution.
 
-## ðŸ“¥ Installation Guide
+## Installation Guide
 
 Get up and running with NEOghost in just a few clicks!
 
@@ -91,7 +92,7 @@ Click the badge below to jump directly to our latest official stable deployment 
 3. Follow the clean, modern dark setup installation wizard instructions.
 4. *(Optional)* Check the box to generate a **Desktop Shortcut** for rapid system access.
 
-> âš ï¸ **Note on Windows SmartScreen / UAC:** 
+> Ã¢Å¡Â Ã¯Â¸Â **Note on Windows SmartScreen / UAC:** 
 > Because this is an independent, open-source portfolio utility, the installer binary is not digitally signed with a commercial Windows Developer Certificate. When launching the installer, Windows may display a **"Publisher: Unknown"** security notification. You can safely click **"More Info"** and then select **"Run Anyway"** to proceed with the native installation.
 
 ---
@@ -138,7 +139,7 @@ A scan of the active source and project file identified legacy attribution refer
 - `NeoGhost/NeoGhost.csproj`
   - `<Authors>Alistair J. R. Young, Dimitris Panokostas</Authors>`
   - `<Company>Arkane Systems</Company>`
-  - `<Copyright>Copyright Â© Alistair J. R. Young 2007-2026</Copyright>`
+  - `<Copyright>Copyright Ã‚Â© Alistair J. R. Young 2007-2026</Copyright>`
 
 ### Notes on the audit
 
@@ -162,10 +163,10 @@ The following packaging and distribution files were deleted from the repository:
 
 This repository now includes the common files expected by modern open source projects:
 
-- `CONTRIBUTING.md` â€” contribution guidelines and workflow expectations.
-- `CODE_OF_CONDUCT.md` â€” community standards for collaboration.
-- `SECURITY.md` â€” secure reporting guidance for vulnerabilities.
-- `LICENSE` â€” the current source license for this project.
+- `CONTRIBUTING.md` Ã¢â‚¬â€ contribution guidelines and workflow expectations.
+- `CODE_OF_CONDUCT.md` Ã¢â‚¬â€ community standards for collaboration.
+- `SECURITY.md` Ã¢â‚¬â€ secure reporting guidance for vulnerabilities.
+- `LICENSE` Ã¢â‚¬â€ the current source license for this project.
 
 ### Current License
 
@@ -176,6 +177,44 @@ This repository is licensed under the MIT License, as defined in the `LICENSE` f
 - This repository is now focused strictly on application logic and Windows Forms behavior.
 - The README was updated to reflect the current state of the project and the cleanup work completed.
 
+## Future Scope: Ghost Input Expansion
+
+To advance **NEOghost** from a specialized cursor manipulator into a comprehensive, multi-device input virtualization environment, the upcoming development pipeline will focus on abstracting hardware-level interactions beyond the mouse subsystem.
+
+### Hardware Keyboard Emulation Framework
+
+The immediate architectural milestone introduces **programmatic keystroke injection** designed to mirror human typing intervals without causing disruptive input collisions for the active operator.
+
+#### Non-Invasive Keystroke Injection (Win32 SendInput)
+
+NEOghost will integrate the native **Win32 `SendInput` API** using carefully selected virtual-key targets (for example `VK_F15` or other benign/unassigned system keys).
+
+The goal is to execute background keystrokes that:
+
+- **Reset the OS idle countdown timer** without modifying active text fields.
+- **Avoid interrupting current workflows** (no visible typing in editors, command prompts, or document UIs).
+- **Minimize collision risk** by ensuring injection occurs only under safe conditions (e.g., when the active context is appropriate and injection windows do not overlap user-driven input events).
+
+#### Organic Desynchronization Algorithms
+
+A specialized timing engine will randomize execution intervals using **human-like micro-delays** and **erratic typing rhythms**, ensuring the injected sequence remains organic rather than periodic.
+
+This â€œorganic desynchronizationâ€ strategy is designed to keep telemetry patterns natural, especially in scenarios where deterministic intervals could be flagged.
+
+### Granular Multi-Device Control Matrix
+
+The refactored desktop dashboard interface will be expanded to include distinct configuration nodes for both the **Mouse** and **Keyboard** sub-engines.
+
+Users will gain the ability to:
+
+- Toggle **devices independently** (Mouse-only, Keyboard-only, or coordinated behavior).
+- Customize **per-device intervals** and timing profiles.
+- Orchestrate coordinated simulation patterns across devices (while keeping injections non-invasive).
+
+---
+
 ## License
 
 This project is licensed under the terms of the `LICENSE` file in the repository root.
+
+

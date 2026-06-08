@@ -1,4 +1,4 @@
-﻿#region header
+#region header
 
 // MouseJiggler - MainForm.cs
 // 
@@ -18,6 +18,8 @@ using System.Windows.Forms;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
+using System.Drawing;
+using System.Drawing.Text;
 
 #endregion
 
@@ -44,6 +46,9 @@ public partial class MainForm : Form
   public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, int jiggleDistance, bool showSettings)
   {
     this.InitializeComponent ();
+
+    this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+    this.UpdateStyles();
 
     // Initialize JiggleMode combo box with enum values
     this.cmbJiggleMode.Items.Clear ();
@@ -114,12 +119,12 @@ public partial class MainForm : Form
     {
       var mode = this.JiggleMode.ToString ();
       var rnd = this.RandomTimer ? $@" with random variation," : string.Empty;
-      var text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Î” {this.JiggleDistance}).";
+      var text = $@"Jiggling mouse every {this.JigglePeriod} s,{rnd} mode: {mode} (Δ {this.JiggleDistance}).";
       this.niTray.Text = text.Length > MaxNotifyIconTextLength ? text[..(MaxNotifyIconTextLength - 3)] + "..." : text;
     }
   }
 
-  private void cmdAbout_Click (object sender, EventArgs e) => new AboutBox ().ShowDialog (this);
+  private void btnAbout_Click (object sender, EventArgs e) => new AboutBox ().ShowDialog (this);
 
   private void trayMenu_ClickOpen (object sender, EventArgs e) => this.niTray_DoubleClick (sender, e);
 
@@ -141,6 +146,49 @@ public partial class MainForm : Form
   {
     base.OnHandleCreated (e);
     this.RegisterToggleJigglingHotKey ();
+  }
+
+  private void btnClose_Click(object sender, EventArgs e) => Application.Exit();
+
+  private void btnMinimize_Click(object sender, EventArgs e) => this.WindowState = FormWindowState.Minimized;
+
+  // Interop for custom drag
+  public const int WM_NCLBUTTONDOWN = 0xA1;
+  public const int HT_CAPTION = 0x2;
+
+  [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+  public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+  [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+  public static extern bool ReleaseCapture();
+
+  internal void Form_MouseDown(object sender, MouseEventArgs e)
+  {
+    if (e.Button == MouseButtons.Left)
+    {
+      ReleaseCapture();
+      SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+    }
+  }
+
+  protected override CreateParams CreateParams
+  {
+    get
+    {
+      CreateParams cp = base.CreateParams;
+      cp.ClassStyle |= 0x00020000; // CS_DROPSHADOW
+      return cp;
+    }
+  }
+
+  protected override void OnPaint(PaintEventArgs e)
+  {
+    base.OnPaint(e);
+    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+    e.Graphics.Clear(Color.Black);
+    using (Pen borderPen = new Pen(Color.FromArgb(24, 24, 27), 1))
+    {
+      e.Graphics.DrawRectangle(borderPen, 0, 0, this.ClientSize.Width - 1, this.ClientSize.Height - 1);
+    }
   }
 
   protected override void OnHandleDestroyed (EventArgs e)
@@ -189,9 +237,45 @@ public partial class MainForm : Form
 
   #region Property synchronization
 
-  private void btnSettings_Click (object sender, EventArgs e) => this.panelSettings.Visible = !this.panelSettings.Visible;
+  private System.Windows.Forms.Timer? _animationTimer;
+
+  private void btnSettings_Click (object sender, EventArgs e)
+  {
+      this.panelSettings.Visible = !this.panelSettings.Visible;
+      this.flpLayout.PerformLayout();
+  }
 
   private void cbMinimize_CheckedChanged (object sender, EventArgs e) => this.MinimizeOnStartup = this.cbMinimize.Checked;
+
+  private void cmbJiggleMode_DrawItem(object sender, DrawItemEventArgs e)
+  {
+    if (e.Index < 0) return;
+
+    e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+
+    if (sender is not ComboBox combo) return;
+    var rect = e.Bounds;
+
+    // Draw flat dark zinc canvas — suppress standard Windows 3D bevel
+    using var brush = new SolidBrush(Color.FromArgb(24, 24, 27));
+    e.Graphics.FillRectangle(brush, rect);
+
+    // Draw border
+    using var pen = new Pen(Color.FromArgb(39, 39, 42), 1);
+    e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width - 1, rect.Height - 1);
+
+    // Draw centered white text with null-safe font fallback
+    var text = combo.Items[e.Index]?.ToString() ?? string.Empty;
+    using var textBrush = new SolidBrush(Color.White);
+    Font drawFont = e.Font ?? this.Font ?? SystemFonts.DefaultFont;
+    var stringFormat = new StringFormat
+    {
+        Alignment = StringAlignment.Center,
+        LineAlignment = StringAlignment.Center
+    };
+    e.Graphics.DrawString(text, drawFont, textBrush, rect, stringFormat);
+  }
 
   private void cmbJiggleMode_SelectedIndexChanged (object sender, EventArgs e)
   {
@@ -291,6 +375,7 @@ public partial class MainForm : Form
   {
     var g = e.Graphics;
     g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
     if (this.cbJiggling.Checked)
     {
       using var outerGlow = new System.Drawing.SolidBrush (System.Drawing.Color.FromArgb (25, 16, 185, 129));
@@ -307,11 +392,34 @@ public partial class MainForm : Form
     }
   }
 
-  private void panelHeader_Paint (object sender, System.Windows.Forms.PaintEventArgs e)
+  private void CustomPanel_Paint (object sender, System.Windows.Forms.PaintEventArgs e)
   {
-    using var pen = new System.Drawing.Pen (System.Drawing.Color.FromArgb (30, 48, 70));
-    e.Graphics.DrawLine (pen, 0, this.panelHeader.Height - 1, this.panelHeader.Width, this.panelHeader.Height - 1);
+    var g = e.Graphics;
+    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+
+    var panel = sender as System.Windows.Forms.Panel;
+    if (panel == null) return;
+
+    var rect = new System.Drawing.Rectangle(0, 0, panel.Width - 1, panel.Height - 1);
+    int cornerDiameter = 16; // 8px corner radius matching CSS rounded-xl
+    using var path = new System.Drawing.Drawing2D.GraphicsPath();
+    path.AddArc(rect.X, rect.Y, cornerDiameter, cornerDiameter, 180, 90);
+    path.AddArc(rect.Right - cornerDiameter, rect.Y, cornerDiameter, cornerDiameter, 270, 90);
+    path.AddArc(rect.Right - cornerDiameter, rect.Bottom - cornerDiameter, cornerDiameter, cornerDiameter, 0, 90);
+    path.AddArc(rect.X, rect.Bottom - cornerDiameter, cornerDiameter, cornerDiameter, 90, 90);
+    path.CloseFigure();
+
+    // Fill panel backing — Zinc-900 card surface
+    using var fillBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(18, 18, 18));
+    g.FillPath(fillBrush, path);
+
+    // Stroke 1px perimeter border — Zinc-800 card outline
+    using var pen = new System.Drawing.Pen(System.Drawing.Color.FromArgb(32, 32, 35), 1);
+    g.DrawPath(pen, path);
   }
+
+
 
   #endregion Visual status
 
@@ -340,7 +448,7 @@ public partial class MainForm : Form
 
   #region Minimize and restore
 
-  private void cmdTrayify_Click (object sender, EventArgs e) => this.MinimizeToTray ();
+  private void btnTray_Click (object sender, EventArgs e) => this.MinimizeToTray ();
 
   private void niTray_DoubleClick (object sender, EventArgs e) => this.RestoreFromTray ();
 

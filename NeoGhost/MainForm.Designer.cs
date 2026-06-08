@@ -1,4 +1,4 @@
-﻿namespace NeoGhost
+namespace NeoGhost
 {
   partial class MainForm
   {
@@ -42,8 +42,11 @@
       // Action buttons
       this.panelActions = new System.Windows.Forms.Panel ();
       this.btnSettings  = new System.Windows.Forms.Button ();
-      this.cmdAbout     = new System.Windows.Forms.Button ();
-      this.cmdTrayify   = new System.Windows.Forms.Button ();
+      this.btnAbout     = new System.Windows.Forms.Button ();
+      this.btnTray      = new System.Windows.Forms.Button ();
+
+      this.btnClose     = new System.Windows.Forms.Button();
+      this.btnMinimize  = new System.Windows.Forms.Button();
 
       // Settings panel
       this.panelSettings    = new System.Windows.Forms.Panel ();
@@ -70,11 +73,11 @@
       this.trayMenu.SuspendLayout ();
       this.SuspendLayout ();
 
-      // â”€â”€ jiggleTimer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // -- jiggleTimer --------------------------------------------------------
       this.jiggleTimer.Interval = 1000;
       this.jiggleTimer.Tick    += this.jiggleTimer_Tick;
 
-      // â”€â”€ trayMenu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // -- trayMenu -----------------------------------------------------------
       this.trayMenu.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
       this.trayMenu.ForeColor = System.Drawing.Color.FromArgb (203, 213, 225);
       this.trayMenu.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
@@ -98,16 +101,14 @@
       this.tsmiExit.Text   = "Exit";
       this.tsmiExit.Click += this.trayMenu_ClickExit;
 
-      // â”€â”€ niTray â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // -- niTray -------------------------------------------------------------
       this.niTray.ContextMenuStrip = this.trayMenu;
       this.niTray.Icon             = (System.Drawing.Icon) resources.GetObject ("niTray.Icon");
       this.niTray.Text             = "NEOghost";
       this.niTray.DoubleClick     += this.niTray_DoubleClick;
 
-      // â”€â”€ flpLayout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-      this.flpLayout.AutoSize      = true;
-      this.flpLayout.AutoSizeMode  = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-      this.flpLayout.BackColor     = System.Drawing.Color.FromArgb (8, 12, 20);
+      // -- flpLayout ----------------------------------------------------------
+      this.flpLayout.BackColor     = System.Drawing.Color.FromArgb (10, 10, 10);
       this.flpLayout.Controls.Add (this.panelHeader);
       this.flpLayout.Controls.Add (this.panelBase);
       this.flpLayout.Controls.Add (this.panelActions);
@@ -117,23 +118,59 @@
       this.flpLayout.Location      = new System.Drawing.Point (0, 0);
       this.flpLayout.Margin        = new System.Windows.Forms.Padding (0);
       this.flpLayout.Name          = "flpLayout";
-      this.flpLayout.Padding       = new System.Windows.Forms.Padding (0);
-      this.flpLayout.Size          = new System.Drawing.Size (420, 216);
+      this.flpLayout.Padding       = new System.Windows.Forms.Padding (24, 24, 24, 24);
+      this.flpLayout.Size          = new System.Drawing.Size (460, 540);
       this.flpLayout.TabIndex      = 0;
       this.flpLayout.WrapContents  = false;
 
-      // â”€â”€ panelHeader (420 Ã— 76) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-      this.panelHeader.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
+      // -- panelHeader --------------------------------------------------------
+      this.panelHeader.BackColor = System.Drawing.Color.FromArgb (10, 10, 10);
+      this.panelHeader.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.panelHeader.Controls.Add (this.lblLogo);
       this.panelHeader.Controls.Add (this.lblAppName);
       this.panelHeader.Controls.Add (this.lblSubtitle);
       this.panelHeader.Controls.Add (this.pnlIndicator);
       this.panelHeader.Controls.Add (this.lblStatusText);
-      this.panelHeader.Margin    = new System.Windows.Forms.Padding (0);
+      this.panelHeader.Controls.Add (this.btnClose);
+      this.panelHeader.Controls.Add (this.btnMinimize);
+      this.panelHeader.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 12);
       this.panelHeader.Name      = "panelHeader";
-      this.panelHeader.Size      = new System.Drawing.Size (420, 76);
+      this.panelHeader.Size      = new System.Drawing.Size (412, 76);
       this.panelHeader.TabIndex  = 0;
-      this.panelHeader.Paint    += this.panelHeader_Paint;
+      this.panelHeader.Paint    += this.CustomPanel_Paint;
+      this.panelHeader.MouseDown += this.Form_MouseDown;
+
+      this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
+      this.btnMinimize.FlatAppearance.BorderSize = 0;
+      this.btnMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(15, 255, 255, 255);
+      this.btnMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(25, 255, 255, 255);
+      this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btnMinimize.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+      this.btnMinimize.ForeColor = System.Drawing.Color.FromArgb(100, 116, 139);
+      this.btnMinimize.Location = new System.Drawing.Point(346, 8);
+      this.btnMinimize.Name = "btnMinimize";
+      this.btnMinimize.Size = new System.Drawing.Size(24, 24);
+      this.btnMinimize.TabIndex = 4;
+      this.btnMinimize.Text = "-";
+      this.btnMinimize.UseVisualStyleBackColor = false;
+      this.btnMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.btnMinimize.Click += this.btnMinimize_Click;
+
+      this.btnClose.BackColor = System.Drawing.Color.Transparent;
+      this.btnClose.FlatAppearance.BorderSize = 0;
+      this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(15, 255, 255, 255);
+      this.btnClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(25, 255, 255, 255);
+      this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+      this.btnClose.ForeColor = System.Drawing.Color.FromArgb(100, 116, 139);
+      this.btnClose.Location = new System.Drawing.Point(376, 8);
+      this.btnClose.Name = "btnClose";
+      this.btnClose.Size = new System.Drawing.Size(24, 24);
+      this.btnClose.TabIndex = 5;
+      this.btnClose.Text = "X";
+      this.btnClose.UseVisualStyleBackColor = false;
+      this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+      this.btnClose.Click += this.btnClose_Click;
 
       this.lblLogo.AutoSize  = false;
       this.lblLogo.BackColor = System.Drawing.Color.Transparent;
@@ -142,17 +179,18 @@
       this.lblLogo.Location  = new System.Drawing.Point (14, 16);
       this.lblLogo.Name      = "lblLogo";
       this.lblLogo.Size      = new System.Drawing.Size (44, 44);
-      this.lblLogo.Text      = "ðŸ–±";
+      this.lblLogo.Text      = "\U0001F5B1";
       this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
       this.lblAppName.AutoSize  = false;
       this.lblAppName.BackColor = System.Drawing.Color.Transparent;
-      this.lblAppName.Font      = new System.Drawing.Font ("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
-      this.lblAppName.ForeColor = System.Drawing.Color.FromArgb (226, 232, 240);
+      this.lblAppName.Font      = new System.Drawing.Font ("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+      this.lblAppName.ForeColor = System.Drawing.Color.FromArgb (255, 255, 255);
       this.lblAppName.Location  = new System.Drawing.Point (64, 12);
       this.lblAppName.Name      = "lblAppName";
       this.lblAppName.Size      = new System.Drawing.Size (240, 28);
       this.lblAppName.Text      = "NEOghost";
+      this.lblAppName.MouseDown += this.Form_MouseDown;
 
       this.lblSubtitle.AutoSize  = false;
       this.lblSubtitle.BackColor = System.Drawing.Color.Transparent;
@@ -162,10 +200,11 @@
       this.lblSubtitle.Name      = "lblSubtitle";
       this.lblSubtitle.Size      = new System.Drawing.Size (200, 18);
       this.lblSubtitle.Text      = "prevent screen sleep";
+      this.lblSubtitle.MouseDown += this.Form_MouseDown;
 
-      // status indicator dot (20 Ã— 20, custom-painted)
+      // status indicator dot (20 x 20, custom-painted)
       this.pnlIndicator.BackColor = System.Drawing.Color.Transparent;
-      this.pnlIndicator.Location  = new System.Drawing.Point (378, 24);
+      this.pnlIndicator.Location  = new System.Drawing.Point (358, 24);
       this.pnlIndicator.Name      = "pnlIndicator";
       this.pnlIndicator.Size      = new System.Drawing.Size (20, 20);
       this.pnlIndicator.TabStop   = false;
@@ -175,94 +214,98 @@
       this.lblStatusText.BackColor = System.Drawing.Color.Transparent;
       this.lblStatusText.Font      = new System.Drawing.Font ("Segoe UI", 7.5F);
       this.lblStatusText.ForeColor = System.Drawing.Color.FromArgb (100, 116, 139);
-      this.lblStatusText.Location  = new System.Drawing.Point (348, 48);
+      this.lblStatusText.Location  = new System.Drawing.Point (328, 48);
       this.lblStatusText.Name      = "lblStatusText";
       this.lblStatusText.Size      = new System.Drawing.Size (60, 16);
       this.lblStatusText.Text      = "IDLE";
       this.lblStatusText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 
-      // â”€â”€ panelBase â€” jiggle toggle row (420 Ã— 88) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-      this.panelBase.BackColor = System.Drawing.Color.FromArgb (8, 12, 20);
+      // -- panelBase -- jiggle toggle row -------------------------------------
+      this.panelBase.BackColor = System.Drawing.Color.FromArgb (10, 10, 10);
       this.panelBase.Controls.Add (this.lblJiggleTitle);
       this.panelBase.Controls.Add (this.cbJiggling);
-      this.panelBase.Margin    = new System.Windows.Forms.Padding (0);
+      this.panelBase.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 12);
       this.panelBase.Name      = "panelBase";
-      this.panelBase.Size      = new System.Drawing.Size (420, 88);
+      this.panelBase.Size      = new System.Drawing.Size (412, 88);
       this.panelBase.TabIndex  = 1;
+      this.panelBase.Paint    += this.CustomPanel_Paint;
 
       this.lblJiggleTitle.AutoSize  = false;
       this.lblJiggleTitle.BackColor = System.Drawing.Color.Transparent;
-      this.lblJiggleTitle.Font      = new System.Drawing.Font ("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-      this.lblJiggleTitle.ForeColor = System.Drawing.Color.FromArgb (100, 116, 139);
+      this.lblJiggleTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+      this.lblJiggleTitle.ForeColor = System.Drawing.Color.FromArgb (161, 161, 170);
       this.lblJiggleTitle.Location  = new System.Drawing.Point (24, 32);
       this.lblJiggleTitle.Name      = "lblJiggleTitle";
       this.lblJiggleTitle.Size      = new System.Drawing.Size (200, 24);
       this.lblJiggleTitle.Text      = "JIGGLING";
 
-      this.cbJiggling.Location       = new System.Drawing.Point (340, 30);
+      this.cbJiggling.Location       = new System.Drawing.Point (332, 30);
       this.cbJiggling.Name           = "cbJiggling";
       this.cbJiggling.Size           = new System.Drawing.Size (56, 28);
       this.cbJiggling.TabIndex       = 0;
       this.cbJiggling.CheckedChanged += this.cbJiggling_CheckedChanged;
 
-      // â”€â”€ panelActions (420 Ã— 52) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-      this.panelActions.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
+      // -- panelActions -------------------------------------------------------
+      this.panelActions.BackColor = System.Drawing.Color.FromArgb (10, 10, 10);
       this.panelActions.Controls.Add (this.btnSettings);
-      this.panelActions.Controls.Add (this.cmdAbout);
-      this.panelActions.Controls.Add (this.cmdTrayify);
-      this.panelActions.Margin    = new System.Windows.Forms.Padding (0);
+      this.panelActions.Controls.Add (this.btnAbout);
+      this.panelActions.Controls.Add (this.btnTray);
+      this.panelActions.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 12);
       this.panelActions.Name      = "panelActions";
-      this.panelActions.Size      = new System.Drawing.Size (420, 52);
+      this.panelActions.Size      = new System.Drawing.Size (412, 50);
       this.panelActions.TabIndex  = 2;
+      this.panelActions.Paint    += this.CustomPanel_Paint;
 
-      this.btnSettings.BackColor                         = System.Drawing.Color.FromArgb (22, 32, 48);
-      this.btnSettings.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (30, 48, 70);
+      this.btnSettings.BackColor                         = System.Drawing.Color.FromArgb (15, 15, 15);
+      this.btnSettings.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (39, 39, 42);
       this.btnSettings.FlatAppearance.BorderSize         = 1;
-      this.btnSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (30, 44, 64);
+      this.btnSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (15, 255, 255, 255);
+      this.btnSettings.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (25, 255, 255, 255);
       this.btnSettings.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
-      this.btnSettings.Font                              = new System.Drawing.Font ("Segoe UI", 8.5F);
-      this.btnSettings.ForeColor                         = System.Drawing.Color.FromArgb (148, 163, 184);
-      this.btnSettings.Location                          = new System.Drawing.Point (10, 8);
+      this.btnSettings.Font                              = new System.Drawing.Font ("Segoe UI", 9F);
+      this.btnSettings.ForeColor                         = System.Drawing.Color.White;
+      this.btnSettings.Location                          = new System.Drawing.Point (6, 5);
       this.btnSettings.Name                              = "btnSettings";
-      this.btnSettings.Size                              = new System.Drawing.Size (126, 36);
+      this.btnSettings.Size                              = new System.Drawing.Size (130, 40);
       this.btnSettings.TabIndex                          = 1;
-      this.btnSettings.Text                              = "âš™  SETTINGS";
+      this.btnSettings.Text                              = "Settings";
       this.btnSettings.UseVisualStyleBackColor           = false;
-      this.btnSettings.Click                            += this.btnSettings_Click;
+      this.btnSettings.Click                            += new System.EventHandler(this.btnSettings_Click);
 
-      this.cmdAbout.BackColor                         = System.Drawing.Color.FromArgb (22, 32, 48);
-      this.cmdAbout.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (30, 48, 70);
-      this.cmdAbout.FlatAppearance.BorderSize         = 1;
-      this.cmdAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (30, 44, 64);
-      this.cmdAbout.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
-      this.cmdAbout.Font                              = new System.Drawing.Font ("Segoe UI", 8.5F);
-      this.cmdAbout.ForeColor                         = System.Drawing.Color.FromArgb (148, 163, 184);
-      this.cmdAbout.Location                          = new System.Drawing.Point (148, 8);
-      this.cmdAbout.Name                              = "cmdAbout";
-      this.cmdAbout.Size                              = new System.Drawing.Size (126, 36);
-      this.cmdAbout.TabIndex                          = 2;
-      this.cmdAbout.Text                              = "â—Œ  ABOUT";
-      this.cmdAbout.UseVisualStyleBackColor           = false;
-      this.cmdAbout.Click                            += this.cmdAbout_Click;
+      this.btnAbout.BackColor                         = System.Drawing.Color.FromArgb (15, 15, 15);
+      this.btnAbout.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (39, 39, 42);
+      this.btnAbout.FlatAppearance.BorderSize         = 1;
+      this.btnAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (15, 255, 255, 255);
+      this.btnAbout.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (25, 255, 255, 255);
+      this.btnAbout.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
+      this.btnAbout.Font                              = new System.Drawing.Font ("Segoe UI", 9F);
+      this.btnAbout.ForeColor                         = System.Drawing.Color.White;
+      this.btnAbout.Location                          = new System.Drawing.Point (141, 5);
+      this.btnAbout.Name                              = "btnAbout";
+      this.btnAbout.Size                              = new System.Drawing.Size (130, 40);
+      this.btnAbout.TabIndex                          = 2;
+      this.btnAbout.Text                              = "About";
+      this.btnAbout.UseVisualStyleBackColor           = false;
+      this.btnAbout.Click                            += new System.EventHandler(this.btnAbout_Click);
 
-      this.cmdTrayify.BackColor                         = System.Drawing.Color.FromArgb (22, 32, 48);
-      this.cmdTrayify.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (30, 48, 70);
-      this.cmdTrayify.FlatAppearance.BorderSize         = 1;
-      this.cmdTrayify.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (30, 44, 64);
-      this.cmdTrayify.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
-      this.cmdTrayify.Font                              = new System.Drawing.Font ("Segoe UI", 8.5F);
-      this.cmdTrayify.ForeColor                         = System.Drawing.Color.FromArgb (148, 163, 184);
-      this.cmdTrayify.Location                          = new System.Drawing.Point (286, 8);
-      this.cmdTrayify.Name                              = "cmdTrayify";
-      this.cmdTrayify.Size                              = new System.Drawing.Size (124, 36);
-      this.cmdTrayify.TabIndex                          = 3;
-      this.cmdTrayify.Text                              = "â¬‡  TRAY";
-      this.cmdTrayify.UseVisualStyleBackColor           = false;
-      this.cmdTrayify.Click                            += this.cmdTrayify_Click;
+      this.btnTray.BackColor                         = System.Drawing.Color.FromArgb (15, 15, 15);
+      this.btnTray.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (39, 39, 42);
+      this.btnTray.FlatAppearance.BorderSize         = 1;
+      this.btnTray.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (15, 255, 255, 255);
+      this.btnTray.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (25, 255, 255, 255);
+      this.btnTray.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
+      this.btnTray.Font                              = new System.Drawing.Font ("Segoe UI", 9F);
+      this.btnTray.ForeColor                         = System.Drawing.Color.White;
+      this.btnTray.Location                          = new System.Drawing.Point (276, 5);
+      this.btnTray.Name                              = "btnTray";
+      this.btnTray.Size                              = new System.Drawing.Size (130, 40);
+      this.btnTray.TabIndex                          = 3;
+      this.btnTray.Text                              = "Minimize";
+      this.btnTray.UseVisualStyleBackColor           = false;
+      this.btnTray.Click                            += new System.EventHandler(this.btnTray_Click);
 
-      // â”€â”€ panelSettings (420 Ã— 240) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-      this.panelSettings.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
-      this.panelSettings.Controls.Add (this.pnlSeparator);
+      // -- panelSettings ------------------------------------------------------
+      this.panelSettings.BackColor = System.Drawing.Color.FromArgb (10, 10, 10);
       this.panelSettings.Controls.Add (this.lblModeTitle);
       this.panelSettings.Controls.Add (this.cmbJiggleMode);
       this.panelSettings.Controls.Add (this.lblRandomTitle);
@@ -274,20 +317,14 @@
       this.panelSettings.Controls.Add (this.nudDistance);
       this.panelSettings.Controls.Add (this.lblMinimizeTitle);
       this.panelSettings.Controls.Add (this.cbMinimize);
-      this.panelSettings.Margin    = new System.Windows.Forms.Padding (0);
+      this.panelSettings.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 12);
       this.panelSettings.Name      = "panelSettings";
-      this.panelSettings.Size      = new System.Drawing.Size (420, 240);
+      this.panelSettings.Size      = new System.Drawing.Size (412, 240);
       this.panelSettings.TabIndex  = 3;
       this.panelSettings.Visible   = false;
+      this.panelSettings.Paint    += this.CustomPanel_Paint;
 
-      // 1 px separator
-      this.pnlSeparator.BackColor = System.Drawing.Color.FromArgb (30, 48, 70);
-      this.pnlSeparator.Location  = new System.Drawing.Point (0, 0);
-      this.pnlSeparator.Name      = "pnlSeparator";
-      this.pnlSeparator.Size      = new System.Drawing.Size (420, 1);
-      this.pnlSeparator.TabStop   = false;
-
-      // row 1 â€” jiggle mode (y = 16)
+      // row 1 -- jiggle mode (y = 16)
       this.lblModeTitle.AutoSize  = false;
       this.lblModeTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblModeTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -297,18 +334,20 @@
       this.lblModeTitle.Size      = new System.Drawing.Size (160, 22);
       this.lblModeTitle.Text      = "JIGGLE MODE";
 
-      this.cmbJiggleMode.BackColor         = System.Drawing.Color.FromArgb (22, 32, 48);
+      this.cmbJiggleMode.BackColor         = System.Drawing.Color.FromArgb (24, 24, 27);
+      this.cmbJiggleMode.DrawMode          = System.Windows.Forms.DrawMode.OwnerDrawFixed;
       this.cmbJiggleMode.DropDownStyle     = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.cmbJiggleMode.FlatStyle         = System.Windows.Forms.FlatStyle.Flat;
-      this.cmbJiggleMode.ForeColor         = System.Drawing.Color.FromArgb (203, 213, 225);
+      this.cmbJiggleMode.ForeColor         = System.Drawing.Color.White;
       this.cmbJiggleMode.FormattingEnabled = true;
-      this.cmbJiggleMode.Location          = new System.Drawing.Point (250, 17);
+      this.cmbJiggleMode.Location          = new System.Drawing.Point (242, 17);
       this.cmbJiggleMode.Name              = "cmbJiggleMode";
       this.cmbJiggleMode.Size              = new System.Drawing.Size (146, 26);
       this.cmbJiggleMode.TabIndex          = 0;
       this.cmbJiggleMode.SelectedIndexChanged += this.cmbJiggleMode_SelectedIndexChanged;
+      this.cmbJiggleMode.DrawItem          += this.cmbJiggleMode_DrawItem;
 
-      // row 2 â€” random timer (y = 60)
+      // row 2 -- random timer (y = 60)
       this.lblRandomTitle.AutoSize  = false;
       this.lblRandomTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblRandomTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -318,13 +357,13 @@
       this.lblRandomTitle.Size      = new System.Drawing.Size (200, 22);
       this.lblRandomTitle.Text      = "RANDOM TIMER";
 
-      this.cbRandom.Location       = new System.Drawing.Point (340, 62);
+      this.cbRandom.Location       = new System.Drawing.Point (332, 62);
       this.cbRandom.Name           = "cbRandom";
       this.cbRandom.Size           = new System.Drawing.Size (56, 28);
       this.cbRandom.TabIndex       = 1;
       this.cbRandom.CheckedChanged += this.cbRandom_CheckedChanged;
 
-      // row 3 â€” interval (y = 104)
+      // row 3 -- interval (y = 104)
       this.lblPeriodLabel.AutoSize  = false;
       this.lblPeriodLabel.BackColor = System.Drawing.Color.Transparent;
       this.lblPeriodLabel.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -334,31 +373,31 @@
       this.lblPeriodLabel.Size      = new System.Drawing.Size (160, 22);
       this.lblPeriodLabel.Text      = "INTERVAL (s)";
 
-      this.nudPeriod.BackColor   = System.Drawing.Color.FromArgb (22, 32, 48);
-      this.nudPeriod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.nudPeriod.ForeColor   = System.Drawing.Color.FromArgb (203, 213, 225);
-      this.nudPeriod.Location    = new System.Drawing.Point (250, 109);
+      this.nudPeriod.BackColor   = System.Drawing.Color.FromArgb (20, 20, 20);
+      this.nudPeriod.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.nudPeriod.ForeColor   = System.Drawing.Color.White;
+      this.nudPeriod.Location    = new System.Drawing.Point (242, 109);
       this.nudPeriod.Maximum     = new decimal (new int[] { 10800, 0, 0, 0 });
       this.nudPeriod.Minimum     = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudPeriod.Name        = "nudPeriod";
-      this.nudPeriod.Size        = new System.Drawing.Size (100, 27);
+      this.nudPeriod.Size        = new System.Drawing.Size (100, 21);
       this.nudPeriod.TabIndex    = 4;
       this.nudPeriod.TextAlign   = System.Windows.Forms.HorizontalAlignment.Right;
       this.nudPeriod.Value       = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudPeriod.ValueChanged += this.nudPeriod_ValueChanged;
 
-      // lbPeriod â€” shows current effective interval (updated by random mode)
+      // lbPeriod -- shows current effective interval (updated by random mode)
       this.lbPeriod.AutoSize  = false;
       this.lbPeriod.BackColor = System.Drawing.Color.Transparent;
       this.lbPeriod.Font      = new System.Drawing.Font ("Segoe UI", 8.5F, System.Drawing.FontStyle.Italic);
       this.lbPeriod.ForeColor = System.Drawing.Color.FromArgb (0, 212, 255);
-      this.lbPeriod.Location  = new System.Drawing.Point (356, 113);
+      this.lbPeriod.Location  = new System.Drawing.Point (348, 113);
       this.lbPeriod.Name      = "lbPeriod";
       this.lbPeriod.Size      = new System.Drawing.Size (48, 18);
       this.lbPeriod.Text      = "1 s";
       this.lbPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 
-      // row 4 â€” distance (y = 148)
+      // row 4 -- distance (y = 148)
       this.lblDistanceLabel.AutoSize  = false;
       this.lblDistanceLabel.BackColor = System.Drawing.Color.Transparent;
       this.lblDistanceLabel.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -368,20 +407,20 @@
       this.lblDistanceLabel.Size      = new System.Drawing.Size (200, 22);
       this.lblDistanceLabel.Text      = "MOVE DISTANCE";
 
-      this.nudDistance.BackColor   = System.Drawing.Color.FromArgb (22, 32, 48);
-      this.nudDistance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.nudDistance.ForeColor   = System.Drawing.Color.FromArgb (203, 213, 225);
-      this.nudDistance.Location    = new System.Drawing.Point (250, 153);
+      this.nudDistance.BackColor   = System.Drawing.Color.FromArgb (20, 20, 20);
+      this.nudDistance.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.nudDistance.ForeColor   = System.Drawing.Color.White;
+      this.nudDistance.Location    = new System.Drawing.Point (242, 153);
       this.nudDistance.Maximum     = new decimal (new int[] { 120, 0, 0, 0 });
       this.nudDistance.Minimum     = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudDistance.Name        = "nudDistance";
-      this.nudDistance.Size        = new System.Drawing.Size (100, 27);
+      this.nudDistance.Size        = new System.Drawing.Size (100, 21);
       this.nudDistance.TabIndex    = 6;
       this.nudDistance.TextAlign   = System.Windows.Forms.HorizontalAlignment.Right;
       this.nudDistance.Value       = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudDistance.ValueChanged += this.nudDistance_ValueChanged;
 
-      // row 5 â€” minimize on start (y = 196)
+      // row 5 -- minimize on start (y = 196)
       this.lblMinimizeTitle.AutoSize  = false;
       this.lblMinimizeTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblMinimizeTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
@@ -391,22 +430,20 @@
       this.lblMinimizeTitle.Size      = new System.Drawing.Size (240, 22);
       this.lblMinimizeTitle.Text      = "MINIMIZE ON START";
 
-      this.cbMinimize.Location       = new System.Drawing.Point (340, 198);
+      this.cbMinimize.Location       = new System.Drawing.Point (332, 198);
       this.cbMinimize.Name           = "cbMinimize";
       this.cbMinimize.Size           = new System.Drawing.Size (56, 28);
       this.cbMinimize.TabIndex       = 7;
       this.cbMinimize.CheckedChanged += this.cbMinimize_CheckedChanged;
 
-      // â”€â”€ MainForm â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // -- MainForm -----------------------------------------------------------
       this.AutoScaleDimensions = new System.Drawing.SizeF (7F, 15F);
       this.AutoScaleMode       = System.Windows.Forms.AutoScaleMode.Font;
-      this.AutoSize            = true;
-      this.AutoSizeMode        = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-      this.BackColor           = System.Drawing.Color.FromArgb (8, 12, 20);
-      this.ClientSize          = new System.Drawing.Size (420, 216);
+      this.BackColor           = System.Drawing.Color.Black;
+      this.ClientSize          = new System.Drawing.Size (460, 540);
       this.Controls.Add (this.flpLayout);
-      this.Font                = new System.Drawing.Font ("Segoe UI", 9.75F);
-      this.FormBorderStyle     = System.Windows.Forms.FormBorderStyle.FixedSingle;
+      this.Font                = new System.Drawing.Font ("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular);
+      this.FormBorderStyle     = System.Windows.Forms.FormBorderStyle.None;
       this.Icon                = (System.Drawing.Icon) resources.GetObject ("$this.Icon");
       this.Margin              = new System.Windows.Forms.Padding (0);
       this.MaximizeBox         = false;
@@ -430,7 +467,7 @@
       this.PerformLayout ();
     }
 
-    // â”€â”€ Field declarations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // -- Field declarations ---------------------------------------------------
     private System.Windows.Forms.Timer                        jiggleTimer;
     private System.Windows.Forms.FlowLayoutPanel             flpLayout;
 
@@ -438,6 +475,8 @@
     private System.Windows.Forms.Label                       lblLogo;
     private System.Windows.Forms.Label                       lblAppName;
     private System.Windows.Forms.Label                       lblSubtitle;
+    private System.Windows.Forms.Button                      btnClose;
+    private System.Windows.Forms.Button                      btnMinimize;
     private System.Windows.Forms.Panel                       pnlIndicator;
     private System.Windows.Forms.Label                       lblStatusText;
 
@@ -447,8 +486,8 @@
 
     private System.Windows.Forms.Panel                       panelActions;
     private System.Windows.Forms.Button                      btnSettings;
-    private System.Windows.Forms.Button                      cmdAbout;
-    private System.Windows.Forms.Button                      cmdTrayify;
+    private System.Windows.Forms.Button                      btnAbout;
+    private System.Windows.Forms.Button                      btnTray;
 
     private System.Windows.Forms.Panel                       panelSettings;
     private System.Windows.Forms.Panel                       pnlSeparator;
@@ -472,4 +511,3 @@
     private System.Windows.Forms.ToolStripMenuItem           tsmiExit;
   }
 }
-
