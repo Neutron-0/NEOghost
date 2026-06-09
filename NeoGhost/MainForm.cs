@@ -1,4 +1,4 @@
-#region header
+﻿#region header
 
 // MouseJiggler - MainForm.cs
 // 
@@ -9,17 +9,21 @@
 
 #region using
 
+using NeoGhost.Controls;
 using NeoGhost.Properties;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
+using System.Reflection;
 using System.Windows.Forms;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
-using System.Drawing;
-using System.Drawing.Text;
 
 #endregion
 
@@ -34,7 +38,25 @@ public partial class MainForm : Form
   private const VIRTUAL_KEY ToggleJigglingHotKeyKey = VIRTUAL_KEY.VK_J;
   private const string ToggleJigglingHotKeyText = "Ctrl+Shift+J";
 
+  private const int CardCornerDiameter = 16;
+  private const float BorderBeamTailFraction = 0.22f;
+
+  private static readonly Color CardSurface = Color.FromArgb(28, 28, 30);
+  private static readonly Color CardBorderMetallic = Color.FromArgb(26, 255, 255, 255);
+  private static readonly Color ZincCharcoalBaseline = Color.FromArgb(39, 39, 42);
+  private static readonly Color BeamPurpleTail = Color.FromArgb(168, 85, 247);
+  private static readonly Color BeamCyan = Color.FromArgb(0, 212, 255);
+
   private bool _hotKeyRegistered;
+
+  // ── Border Beam Animation ───────────────────────────────────────
+  private float _borderBeamProgress;
+  private System.Windows.Forms.Timer? _borderBeamTimer;
+  private IntPtr _formIconHandle;
+  private IntPtr _trayIconHandle;
+
+  [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+  private static extern bool DestroyIcon(IntPtr handle);
 
   /// <summary>
   ///     Constructor for use by the form designer.
@@ -45,10 +67,24 @@ public partial class MainForm : Form
 
   public MainForm (bool jiggleOnStartup, bool minimizeOnStartup, JiggleMode jiggleMode, bool randomTimer, int jigglePeriod, int jiggleDistance, bool showSettings)
   {
-    this.InitializeComponent ();
+    try
+    {
+      this.InitializeComponent ();
 
-    this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+      this.DoubleBuffered = true;
+
+    this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
     this.UpdateStyles();
+
+    this.EnableControlDoubleBuffer(this.flpLayout);
+    this.EnableControlDoubleBuffer(this.panelHeader);
+    this.EnableControlDoubleBuffer(this.panelBase);
+    this.EnableControlDoubleBuffer(this.panelActions);
+    this.EnableControlDoubleBuffer(this.panelSettings);
+    this.EnableControlDoubleBuffer(this.pnlIndicator);
+    this.EnableControlDoubleBuffer(this.lblLogo);
+
+    this.panelSettings.Visible = true;
 
     // Initialize JiggleMode combo box with enum values
     this.cmbJiggleMode.Items.Clear ();
@@ -84,20 +120,39 @@ public partial class MainForm : Form
       this.nudDistance.Value = this.nudDistance.Minimum; // or any default value within the range
     this.JiggleDistance = (int)this.nudDistance.Value;
 
-    // Show settings panel on startup if requested
-    if (showSettings)
-      this.panelSettings.Visible = true;
-
     // Component initial setting
     this.tsmiStartJiggling.Visible = !this.cbJiggling.Checked;
     this.tsmiStopJiggling.Visible  = this.cbJiggling.Checked;
+    }
+    catch (Exception ex)
+    {
+      Debug.WriteLine($"[NEOghost] MainForm constructor failed: {ex}");
+      try
+      {
+        // Keep app bootable even if styling/controls fail.
+        this.BackColor = Color.Black;
+      }
+      catch
+      {
+        // ignore
+      }
+    }
   }
+
 
   public bool JiggleOnStartup { get; }
 
   private void MainForm_Load (object sender, EventArgs e)
   {
     SystemEvents.SessionSwitch += this.SystemEvents_SessionSwitch;
+
+    // ── Programmatic Icon Assignment ────────────────────────────
+    this.AssignDynamicIcons ();
+
+    // ── Start Border Beam Animation Timer ───────────────────────
+    this._borderBeamTimer = new System.Windows.Forms.Timer { Interval = 16 };
+    this._borderBeamTimer.Tick += this.BorderBeamTimer_Tick;
+    this._borderBeamTimer.Start ();
 
     if (this.JiggleOnStartup)
       this.cbJiggling.Checked = true;
@@ -106,8 +161,45 @@ public partial class MainForm : Form
   protected override void OnFormClosing (FormClosingEventArgs e)
   {
     SystemEvents.SessionSwitch -= this.SystemEvents_SessionSwitch;
+
+    // ── Dispose border beam timer ───────────────────────────────
+    if (this._borderBeamTimer != null)
+    {
+      try
+      {
+        this._borderBeamTimer.Stop ();
+        this._borderBeamTimer.Tick -= this.BorderBeamTimer_Tick;
+        this._borderBeamTimer.Dispose ();
+      }
+      catch (Exception ex)
+      {
+        Debug.WriteLine($"[NEOghost] BorderBeamTimer dispose failed: {ex}");
+      }
+      this._borderBeamTimer = null;
+    }
+
+    // ── Destroy programmatic icon handles ────────────────────────
+    try
+    {
+      if (this._formIconHandle != IntPtr.Zero)
+      {
+        DestroyIcon (this._formIconHandle);
+        this._formIconHandle = IntPtr.Zero;
+      }
+      if (this._trayIconHandle != IntPtr.Zero)
+      {
+        DestroyIcon (this._trayIconHandle);
+        this._trayIconHandle = IntPtr.Zero;
+      }
+    }
+    catch (Exception ex)
+    {
+      Debug.WriteLine($"[NEOghost] DestroyIcon failed: {ex}");
+    }
+
     base.OnFormClosing (e);
   }
+
 
   private void UpdateNotificationAreaText ()
   {
@@ -237,14 +329,6 @@ public partial class MainForm : Form
 
   #region Property synchronization
 
-  private System.Windows.Forms.Timer? _animationTimer;
-
-  private void btnSettings_Click (object sender, EventArgs e)
-  {
-      this.panelSettings.Visible = !this.panelSettings.Visible;
-      this.flpLayout.PerformLayout();
-  }
-
   private void cbMinimize_CheckedChanged (object sender, EventArgs e) => this.MinimizeOnStartup = this.cbMinimize.Checked;
 
   private void cmbJiggleMode_DrawItem(object sender, DrawItemEventArgs e)
@@ -257,12 +341,12 @@ public partial class MainForm : Form
     if (sender is not ComboBox combo) return;
     var rect = e.Bounds;
 
-    // Draw flat dark zinc canvas — suppress standard Windows 3D bevel
-    using var brush = new SolidBrush(Color.FromArgb(24, 24, 27));
+    // Draw flat dark surface-container — suppress standard Windows 3D bevel
+    using var brush = new SolidBrush(Color.FromArgb(26, 26, 29));
     e.Graphics.FillRectangle(brush, rect);
 
     // Draw border
-    using var pen = new Pen(Color.FromArgb(39, 39, 42), 1);
+    using var pen = new Pen(Color.FromArgb(26, 255, 255, 255), 1);
     e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width - 1, rect.Height - 1);
 
     // Draw centered white text with null-safe font fallback
@@ -395,30 +479,212 @@ public partial class MainForm : Form
   private void CustomPanel_Paint (object sender, System.Windows.Forms.PaintEventArgs e)
   {
     var g = e.Graphics;
-    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+    g.SmoothingMode = SmoothingMode.AntiAlias;
     g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+    g.CompositingQuality = CompositingQuality.HighQuality;
+    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-    var panel = sender as System.Windows.Forms.Panel;
-    if (panel == null) return;
+    if (sender is not Panel panel)
+      return;
 
-    var rect = new System.Drawing.Rectangle(0, 0, panel.Width - 1, panel.Height - 1);
-    int cornerDiameter = 16; // 8px corner radius matching CSS rounded-xl
-    using var path = new System.Drawing.Drawing2D.GraphicsPath();
-    path.AddArc(rect.X, rect.Y, cornerDiameter, cornerDiameter, 180, 90);
-    path.AddArc(rect.Right - cornerDiameter, rect.Y, cornerDiameter, cornerDiameter, 270, 90);
-    path.AddArc(rect.Right - cornerDiameter, rect.Bottom - cornerDiameter, cornerDiameter, cornerDiameter, 0, 90);
-    path.AddArc(rect.X, rect.Bottom - cornerDiameter, cornerDiameter, cornerDiameter, 90, 90);
-    path.CloseFigure();
+    var rect = new RectangleF(0.5f, 0.5f, panel.ClientSize.Width - 1f, panel.ClientSize.Height - 1f);
+    using var path = CreateRoundedRectPath(rect, CardCornerDiameter);
 
-    // Fill panel backing — Zinc-900 card surface
-    using var fillBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(18, 18, 18));
-    g.FillPath(fillBrush, path);
+    using (var fillBrush = new SolidBrush(CardSurface))
+      g.FillPath(fillBrush, path);
 
-    // Stroke 1px perimeter border — Zinc-800 card outline
-    using var pen = new System.Drawing.Pen(System.Drawing.Color.FromArgb(32, 32, 35), 1);
-    g.DrawPath(pen, path);
+    using (var borderPen = new Pen(ZincCharcoalBaseline, 1f))
+      g.DrawPath(borderPen, path);
+
+    using (var metallicPen = new Pen(CardBorderMetallic, 1f))
+      g.DrawPath(metallicPen, path);
+
+    DrawBorderBeam(g, path, rect, CardCornerDiameter, this._borderBeamProgress);
   }
 
+  private static GraphicsPath CreateRoundedRectPath (RectangleF rect, int cornerDiameter)
+  {
+    var path = new GraphicsPath();
+    float r = Math.Min(cornerDiameter, Math.Min(rect.Width, rect.Height));
+    float d = r;
+    path.AddArc(rect.X, rect.Y, d, d, 180, 90);
+    path.AddArc(rect.Right - d, rect.Y, d, d, 270, 90);
+    path.AddArc(rect.Right - d, rect.Bottom - d, d, d, 0, 90);
+    path.AddArc(rect.X, rect.Bottom - d, d, d, 90, 90);
+    path.CloseFigure();
+    return path;
+  }
+
+  private static float GetRoundedRectPerimeter (RectangleF rect, float cornerDiameter)
+  {
+    float r = Math.Min(cornerDiameter / 2f, Math.Min(rect.Width, rect.Height) / 2f);
+    float straight = 2f * (rect.Width + rect.Height - cornerDiameter * 2f);
+    float arcs = 2f * MathF.PI * r;
+    return straight + arcs;
+  }
+
+  private static (PointF point, float tangentAngle) GetPointOnRoundedRectPerimeter (RectangleF rect, float cornerDiameter, float progress)
+  {
+    float r = Math.Min(cornerDiameter / 2f, Math.Min(rect.Width, rect.Height) / 2f);
+    float top = rect.Width - cornerDiameter;
+    float right = rect.Height - cornerDiameter;
+    float bottom = rect.Width - cornerDiameter;
+    float left = rect.Height - cornerDiameter;
+    float arcSegment = MathF.PI * r / 2f;
+    float total = top + right + bottom + left + (4f * arcSegment);
+    float d = (progress - MathF.Truncate(progress)) * total;
+
+    float x = rect.X + r;
+    float y = rect.Y;
+
+    if (d <= top)
+      return (new PointF(x + d, y), 0f);
+    d -= top;
+
+    if (d <= arcSegment)
+    {
+      float angle = -MathF.PI / 2f + (d / arcSegment) * (MathF.PI / 2f);
+      float cx = rect.Right - r;
+      float cy = rect.Y + r;
+      return (new PointF(cx + r * MathF.Cos(angle), cy + r * MathF.Sin(angle)), angle + MathF.PI / 2f);
+    }
+    d -= arcSegment;
+
+    if (d <= right)
+      return (new PointF(rect.Right, rect.Y + r + d), MathF.PI / 2f);
+    d -= right;
+
+    if (d <= arcSegment)
+    {
+      float angle = (d / arcSegment) * (MathF.PI / 2f);
+      float cx = rect.Right - r;
+      float cy = rect.Bottom - r;
+      return (new PointF(cx + r * MathF.Cos(angle), cy + r * MathF.Sin(angle)), angle + MathF.PI / 2f);
+    }
+    d -= arcSegment;
+
+    if (d <= bottom)
+      return (new PointF(rect.Right - r - d, rect.Bottom), MathF.PI);
+    d -= bottom;
+
+    if (d <= arcSegment)
+    {
+      float angle = MathF.PI / 2f + (d / arcSegment) * (MathF.PI / 2f);
+      float cx = rect.X + r;
+      float cy = rect.Bottom - r;
+      return (new PointF(cx + r * MathF.Cos(angle), cy + r * MathF.Sin(angle)), angle + MathF.PI / 2f);
+    }
+    d -= arcSegment;
+
+    if (d <= left)
+      return (new PointF(rect.X, rect.Bottom - r - d), -MathF.PI / 2f);
+    d -= left;
+
+    float finalAngle = MathF.PI + (d / arcSegment) * (MathF.PI / 2f);
+    float finalCx = rect.X + r;
+    float finalCy = rect.Y + r;
+    return (new PointF(finalCx + r * MathF.Cos(finalAngle), finalCy + r * MathF.Sin(finalAngle)), finalAngle + MathF.PI / 2f);
+  }
+
+  private static void DrawBorderBeam (Graphics g, GraphicsPath shapePath, RectangleF bounds, float cornerDiameter, float progress)
+  {
+    float normalizedProgress = progress - MathF.Truncate(progress);
+    float tailProgress = normalizedProgress - BorderBeamTailFraction;
+    if (tailProgress < 0f)
+      tailProgress += 1f;
+
+    var (head, tangentAngle) = GetPointOnRoundedRectPerimeter(bounds, cornerDiameter, normalizedProgress);
+    var (tail, _) = GetPointOnRoundedRectPerimeter(bounds, cornerDiameter, tailProgress);
+
+    float perimeter = GetRoundedRectPerimeter(bounds, cornerDiameter);
+    float beamSpan = perimeter * BorderBeamTailFraction;
+    float cos = MathF.Cos(tangentAngle);
+    float sin = MathF.Sin(tangentAngle);
+
+    var gradientTail = new PointF(head.X - cos * beamSpan, head.Y - sin * beamSpan);
+    var gradientHead = new PointF(head.X + cos * (beamSpan * 0.15f), head.Y + sin * (beamSpan * 0.15f));
+
+    using var tailBrush = new LinearGradientBrush(gradientTail, gradientHead, Color.Transparent, Color.Transparent);
+    tailBrush.InterpolationColors = new ColorBlend
+    {
+      Colors = new[]
+      {
+        Color.Transparent,
+        Color.FromArgb(0, BeamPurpleTail),
+        Color.FromArgb(48, BeamPurpleTail),
+        Color.FromArgb(72, BeamCyan),
+        Color.FromArgb(140, BeamCyan),
+        Color.FromArgb(220, 255, 255, 255),
+        Color.FromArgb(255, 255, 255, 255)
+      },
+      Positions = new[] { 0f, 0.12f, 0.28f, 0.48f, 0.68f, 0.88f, 1f }
+    };
+
+    using (var bloomPen = new Pen(tailBrush, 3.5f)
+    {
+      LineJoin = LineJoin.Round,
+      StartCap = LineCap.Round,
+      EndCap = LineCap.Round
+    })
+      g.DrawPath(bloomPen, shapePath);
+
+    using var leadingBrush = new LinearGradientBrush(
+      new PointF(tail.X, tail.Y),
+      new PointF(head.X, head.Y),
+      Color.FromArgb(160, BeamCyan),
+      Color.FromArgb(255, 255, 255, 255));
+
+    using (var leadingPen = new Pen(leadingBrush, 2f)
+    {
+      LineJoin = LineJoin.Round,
+      StartCap = LineCap.Round,
+      EndCap = LineCap.Round
+    })
+      g.DrawPath(leadingPen, shapePath);
+  }
+
+  private void EnableControlDoubleBuffer (Control control)
+  {
+    typeof(Control).InvokeMember(
+      "DoubleBuffered",
+      BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
+      null,
+      control,
+      new object[] { true });
+  }
+
+  private void BorderBeamTimer_Tick (object? sender, EventArgs e)
+  {
+    this._borderBeamProgress = (this._borderBeamProgress + 0.008f) % 1.0f;
+    this.panelHeader.Invalidate(false);
+    this.panelBase.Invalidate(false);
+    this.panelActions.Invalidate(false);
+    this.panelSettings.Invalidate(false);
+  }
+
+  // ── Dynamic Icon Factory ──────────────────────────────────────────
+  private void AssignDynamicIcons ()
+  {
+    var formIcon = CreateGlowingOrbIcon (32);
+    this._formIconHandle = formIcon.Handle;
+    this.Icon = formIcon;
+
+    var trayIcon = CreateGlowingOrbIcon (16);
+    this._trayIconHandle = trayIcon.Handle;
+    this.niTray.Icon = trayIcon;
+  }
+
+  private static Icon CreateGlowingOrbIcon (int size)
+  {
+    using var bmp = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+    using (var g = Graphics.FromImage(bmp))
+    {
+      g.Clear(Color.Transparent);
+      GlowingOrbPanel.DrawOrbToGraphics(g, size, size);
+    }
+    IntPtr hIcon = bmp.GetHicon();
+    return Icon.FromHandle(hIcon);
+  }
 
 
   #endregion Visual status

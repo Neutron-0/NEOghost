@@ -1,4 +1,4 @@
-namespace NeoGhost
+﻿namespace NeoGhost
 {
   partial class MainForm
   {
@@ -28,7 +28,7 @@ namespace NeoGhost
 
       // Header
       this.panelHeader   = new System.Windows.Forms.Panel ();
-      this.lblLogo       = new System.Windows.Forms.Label ();
+      this.lblLogo       = new NeoGhost.Controls.GlowingOrbPanel ();
       this.lblAppName    = new System.Windows.Forms.Label ();
       this.lblSubtitle   = new System.Windows.Forms.Label ();
       this.pnlIndicator  = new System.Windows.Forms.Panel ();
@@ -41,7 +41,6 @@ namespace NeoGhost
 
       // Action buttons
       this.panelActions = new System.Windows.Forms.Panel ();
-      this.btnSettings  = new System.Windows.Forms.Button ();
       this.btnAbout     = new System.Windows.Forms.Button ();
       this.btnTray      = new System.Windows.Forms.Button ();
 
@@ -103,12 +102,12 @@ namespace NeoGhost
 
       // -- niTray -------------------------------------------------------------
       this.niTray.ContextMenuStrip = this.trayMenu;
-      this.niTray.Icon             = (System.Drawing.Icon) resources.GetObject ("niTray.Icon");
       this.niTray.Text             = "NEOghost";
       this.niTray.DoubleClick     += this.niTray_DoubleClick;
 
       // -- flpLayout ----------------------------------------------------------
-      this.flpLayout.BackColor     = System.Drawing.Color.FromArgb (10, 10, 10);
+      // Reference tokens: --spacing-gutter 24px, --color-pure-black #000000
+      this.flpLayout.BackColor     = System.Drawing.Color.Black;
       this.flpLayout.Controls.Add (this.panelHeader);
       this.flpLayout.Controls.Add (this.panelBase);
       this.flpLayout.Controls.Add (this.panelActions);
@@ -124,7 +123,8 @@ namespace NeoGhost
       this.flpLayout.WrapContents  = false;
 
       // -- panelHeader --------------------------------------------------------
-      this.panelHeader.BackColor = System.Drawing.Color.FromArgb (10, 10, 10);
+      // glass-panel surface: rgba(28,28,30,0.5) on pure black
+      this.panelHeader.BackColor = System.Drawing.Color.Black;
       this.panelHeader.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.panelHeader.Controls.Add (this.lblLogo);
       this.panelHeader.Controls.Add (this.lblAppName);
@@ -133,9 +133,9 @@ namespace NeoGhost
       this.panelHeader.Controls.Add (this.lblStatusText);
       this.panelHeader.Controls.Add (this.btnClose);
       this.panelHeader.Controls.Add (this.btnMinimize);
-      this.panelHeader.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 12);
+      this.panelHeader.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 16);
       this.panelHeader.Name      = "panelHeader";
-      this.panelHeader.Size      = new System.Drawing.Size (412, 76);
+      this.panelHeader.Size      = new System.Drawing.Size (412, 72);
       this.panelHeader.TabIndex  = 0;
       this.panelHeader.Paint    += this.CustomPanel_Paint;
       this.panelHeader.MouseDown += this.Form_MouseDown;
@@ -172,21 +172,16 @@ namespace NeoGhost
       this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
       this.btnClose.Click += this.btnClose_Click;
 
-      this.lblLogo.AutoSize  = false;
       this.lblLogo.BackColor = System.Drawing.Color.Transparent;
-      this.lblLogo.Font      = new System.Drawing.Font ("Segoe UI Emoji", 20F);
-      this.lblLogo.ForeColor = System.Drawing.Color.FromArgb (0, 212, 255);
-      this.lblLogo.Location  = new System.Drawing.Point (14, 16);
+      this.lblLogo.Location  = new System.Drawing.Point (16, 14);
       this.lblLogo.Name      = "lblLogo";
       this.lblLogo.Size      = new System.Drawing.Size (44, 44);
-      this.lblLogo.Text      = "\U0001F5B1";
-      this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
       this.lblAppName.AutoSize  = false;
       this.lblAppName.BackColor = System.Drawing.Color.Transparent;
       this.lblAppName.Font      = new System.Drawing.Font ("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
       this.lblAppName.ForeColor = System.Drawing.Color.FromArgb (255, 255, 255);
-      this.lblAppName.Location  = new System.Drawing.Point (64, 12);
+      this.lblAppName.Location  = new System.Drawing.Point (68, 10);
       this.lblAppName.Name      = "lblAppName";
       this.lblAppName.Size      = new System.Drawing.Size (240, 28);
       this.lblAppName.Text      = "NEOghost";
@@ -195,8 +190,8 @@ namespace NeoGhost
       this.lblSubtitle.AutoSize  = false;
       this.lblSubtitle.BackColor = System.Drawing.Color.Transparent;
       this.lblSubtitle.Font      = new System.Drawing.Font ("Segoe UI", 9F);
-      this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb (71, 85, 105);
-      this.lblSubtitle.Location  = new System.Drawing.Point (66, 42);
+      this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb (101, 100, 102);
+      this.lblSubtitle.Location  = new System.Drawing.Point (70, 40);
       this.lblSubtitle.Name      = "lblSubtitle";
       this.lblSubtitle.Size      = new System.Drawing.Size (200, 18);
       this.lblSubtitle.Text      = "prevent screen sleep";
@@ -204,7 +199,7 @@ namespace NeoGhost
 
       // status indicator dot (20 x 20, custom-painted)
       this.pnlIndicator.BackColor = System.Drawing.Color.Transparent;
-      this.pnlIndicator.Location  = new System.Drawing.Point (358, 24);
+      this.pnlIndicator.Location  = new System.Drawing.Point (358, 22);
       this.pnlIndicator.Name      = "pnlIndicator";
       this.pnlIndicator.Size      = new System.Drawing.Size (20, 20);
       this.pnlIndicator.TabStop   = false;
@@ -214,17 +209,17 @@ namespace NeoGhost
       this.lblStatusText.BackColor = System.Drawing.Color.Transparent;
       this.lblStatusText.Font      = new System.Drawing.Font ("Segoe UI", 7.5F);
       this.lblStatusText.ForeColor = System.Drawing.Color.FromArgb (100, 116, 139);
-      this.lblStatusText.Location  = new System.Drawing.Point (328, 48);
+      this.lblStatusText.Location  = new System.Drawing.Point (328, 46);
       this.lblStatusText.Name      = "lblStatusText";
       this.lblStatusText.Size      = new System.Drawing.Size (60, 16);
       this.lblStatusText.Text      = "IDLE";
       this.lblStatusText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 
       // -- panelBase -- jiggle toggle row -------------------------------------
-      this.panelBase.BackColor = System.Drawing.Color.FromArgb (10, 10, 10);
+      this.panelBase.BackColor = System.Drawing.Color.Black;
       this.panelBase.Controls.Add (this.lblJiggleTitle);
       this.panelBase.Controls.Add (this.cbJiggling);
-      this.panelBase.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 12);
+      this.panelBase.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 16);
       this.panelBase.Name      = "panelBase";
       this.panelBase.Size      = new System.Drawing.Size (412, 88);
       this.panelBase.TabIndex  = 1;
@@ -233,79 +228,62 @@ namespace NeoGhost
       this.lblJiggleTitle.AutoSize  = false;
       this.lblJiggleTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblJiggleTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-      this.lblJiggleTitle.ForeColor = System.Drawing.Color.FromArgb (161, 161, 170);
-      this.lblJiggleTitle.Location  = new System.Drawing.Point (24, 32);
+      this.lblJiggleTitle.ForeColor = System.Drawing.Color.FromArgb (196, 199, 200);
+      this.lblJiggleTitle.Location  = new System.Drawing.Point (24, 30);
       this.lblJiggleTitle.Name      = "lblJiggleTitle";
       this.lblJiggleTitle.Size      = new System.Drawing.Size (200, 24);
       this.lblJiggleTitle.Text      = "JIGGLING";
 
-      this.cbJiggling.Location       = new System.Drawing.Point (332, 30);
+      this.cbJiggling.Location       = new System.Drawing.Point (332, 28);
       this.cbJiggling.Name           = "cbJiggling";
       this.cbJiggling.Size           = new System.Drawing.Size (56, 28);
       this.cbJiggling.TabIndex       = 0;
       this.cbJiggling.CheckedChanged += this.cbJiggling_CheckedChanged;
 
       // -- panelActions -------------------------------------------------------
-      this.panelActions.BackColor = System.Drawing.Color.FromArgb (10, 10, 10);
-      this.panelActions.Controls.Add (this.btnSettings);
+      this.panelActions.BackColor = System.Drawing.Color.Black;
       this.panelActions.Controls.Add (this.btnAbout);
       this.panelActions.Controls.Add (this.btnTray);
-      this.panelActions.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 12);
+      this.panelActions.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 16);
       this.panelActions.Name      = "panelActions";
       this.panelActions.Size      = new System.Drawing.Size (412, 50);
       this.panelActions.TabIndex  = 2;
       this.panelActions.Paint    += this.CustomPanel_Paint;
 
-      this.btnSettings.BackColor                         = System.Drawing.Color.FromArgb (15, 15, 15);
-      this.btnSettings.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (39, 39, 42);
-      this.btnSettings.FlatAppearance.BorderSize         = 1;
-      this.btnSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (15, 255, 255, 255);
-      this.btnSettings.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (25, 255, 255, 255);
-      this.btnSettings.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
-      this.btnSettings.Font                              = new System.Drawing.Font ("Segoe UI", 9F);
-      this.btnSettings.ForeColor                         = System.Drawing.Color.White;
-      this.btnSettings.Location                          = new System.Drawing.Point (6, 5);
-      this.btnSettings.Name                              = "btnSettings";
-      this.btnSettings.Size                              = new System.Drawing.Size (130, 40);
-      this.btnSettings.TabIndex                          = 1;
-      this.btnSettings.Text                              = "Settings";
-      this.btnSettings.UseVisualStyleBackColor           = false;
-      this.btnSettings.Click                            += new System.EventHandler(this.btnSettings_Click);
-
-      this.btnAbout.BackColor                         = System.Drawing.Color.FromArgb (15, 15, 15);
-      this.btnAbout.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (39, 39, 42);
+      this.btnAbout.BackColor                         = System.Drawing.Color.FromArgb (28, 28, 30);
+      this.btnAbout.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (26, 255, 255, 255);
       this.btnAbout.FlatAppearance.BorderSize         = 1;
       this.btnAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (15, 255, 255, 255);
       this.btnAbout.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (25, 255, 255, 255);
       this.btnAbout.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
       this.btnAbout.Font                              = new System.Drawing.Font ("Segoe UI", 9F);
       this.btnAbout.ForeColor                         = System.Drawing.Color.White;
-      this.btnAbout.Location                          = new System.Drawing.Point (141, 5);
+      this.btnAbout.Location                          = new System.Drawing.Point (6, 5);
       this.btnAbout.Name                              = "btnAbout";
-      this.btnAbout.Size                              = new System.Drawing.Size (130, 40);
-      this.btnAbout.TabIndex                          = 2;
+      this.btnAbout.Size                              = new System.Drawing.Size (197, 40);
+      this.btnAbout.TabIndex                          = 1;
       this.btnAbout.Text                              = "About";
       this.btnAbout.UseVisualStyleBackColor           = false;
       this.btnAbout.Click                            += new System.EventHandler(this.btnAbout_Click);
 
-      this.btnTray.BackColor                         = System.Drawing.Color.FromArgb (15, 15, 15);
-      this.btnTray.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (39, 39, 42);
+      this.btnTray.BackColor                         = System.Drawing.Color.FromArgb (28, 28, 30);
+      this.btnTray.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (26, 255, 255, 255);
       this.btnTray.FlatAppearance.BorderSize         = 1;
       this.btnTray.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (15, 255, 255, 255);
       this.btnTray.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (25, 255, 255, 255);
       this.btnTray.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
       this.btnTray.Font                              = new System.Drawing.Font ("Segoe UI", 9F);
       this.btnTray.ForeColor                         = System.Drawing.Color.White;
-      this.btnTray.Location                          = new System.Drawing.Point (276, 5);
+      this.btnTray.Location                          = new System.Drawing.Point (209, 5);
       this.btnTray.Name                              = "btnTray";
-      this.btnTray.Size                              = new System.Drawing.Size (130, 40);
-      this.btnTray.TabIndex                          = 3;
+      this.btnTray.Size                              = new System.Drawing.Size (197, 40);
+      this.btnTray.TabIndex                          = 2;
       this.btnTray.Text                              = "Minimize";
       this.btnTray.UseVisualStyleBackColor           = false;
       this.btnTray.Click                            += new System.EventHandler(this.btnTray_Click);
 
       // -- panelSettings ------------------------------------------------------
-      this.panelSettings.BackColor = System.Drawing.Color.FromArgb (10, 10, 10);
+      this.panelSettings.BackColor = System.Drawing.Color.Black;
       this.panelSettings.Controls.Add (this.lblModeTitle);
       this.panelSettings.Controls.Add (this.cmbJiggleMode);
       this.panelSettings.Controls.Add (this.lblRandomTitle);
@@ -317,30 +295,30 @@ namespace NeoGhost
       this.panelSettings.Controls.Add (this.nudDistance);
       this.panelSettings.Controls.Add (this.lblMinimizeTitle);
       this.panelSettings.Controls.Add (this.cbMinimize);
-      this.panelSettings.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 12);
+      this.panelSettings.Margin    = new System.Windows.Forms.Padding (0);
       this.panelSettings.Name      = "panelSettings";
-      this.panelSettings.Size      = new System.Drawing.Size (412, 240);
+      this.panelSettings.Size      = new System.Drawing.Size (412, 228);
       this.panelSettings.TabIndex  = 3;
-      this.panelSettings.Visible   = false;
+      this.panelSettings.Visible   = true;
       this.panelSettings.Paint    += this.CustomPanel_Paint;
 
       // row 1 -- jiggle mode (y = 16)
       this.lblModeTitle.AutoSize  = false;
       this.lblModeTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblModeTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
-      this.lblModeTitle.ForeColor = System.Drawing.Color.FromArgb (156, 163, 175);
-      this.lblModeTitle.Location  = new System.Drawing.Point (24, 20);
+      this.lblModeTitle.ForeColor = System.Drawing.Color.FromArgb (196, 199, 200);
+      this.lblModeTitle.Location  = new System.Drawing.Point (24, 16);
       this.lblModeTitle.Name      = "lblModeTitle";
       this.lblModeTitle.Size      = new System.Drawing.Size (160, 22);
       this.lblModeTitle.Text      = "JIGGLE MODE";
 
-      this.cmbJiggleMode.BackColor         = System.Drawing.Color.FromArgb (24, 24, 27);
+      this.cmbJiggleMode.BackColor         = System.Drawing.Color.FromArgb (26, 26, 29);
       this.cmbJiggleMode.DrawMode          = System.Windows.Forms.DrawMode.OwnerDrawFixed;
       this.cmbJiggleMode.DropDownStyle     = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.cmbJiggleMode.FlatStyle         = System.Windows.Forms.FlatStyle.Flat;
       this.cmbJiggleMode.ForeColor         = System.Drawing.Color.White;
       this.cmbJiggleMode.FormattingEnabled = true;
-      this.cmbJiggleMode.Location          = new System.Drawing.Point (242, 17);
+      this.cmbJiggleMode.Location          = new System.Drawing.Point (242, 13);
       this.cmbJiggleMode.Name              = "cmbJiggleMode";
       this.cmbJiggleMode.Size              = new System.Drawing.Size (146, 26);
       this.cmbJiggleMode.TabIndex          = 0;
@@ -351,13 +329,13 @@ namespace NeoGhost
       this.lblRandomTitle.AutoSize  = false;
       this.lblRandomTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblRandomTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
-      this.lblRandomTitle.ForeColor = System.Drawing.Color.FromArgb (156, 163, 175);
-      this.lblRandomTitle.Location  = new System.Drawing.Point (24, 64);
+      this.lblRandomTitle.ForeColor = System.Drawing.Color.FromArgb (196, 199, 200);
+      this.lblRandomTitle.Location  = new System.Drawing.Point (24, 58);
       this.lblRandomTitle.Name      = "lblRandomTitle";
       this.lblRandomTitle.Size      = new System.Drawing.Size (200, 22);
       this.lblRandomTitle.Text      = "RANDOM TIMER";
 
-      this.cbRandom.Location       = new System.Drawing.Point (332, 62);
+      this.cbRandom.Location       = new System.Drawing.Point (332, 56);
       this.cbRandom.Name           = "cbRandom";
       this.cbRandom.Size           = new System.Drawing.Size (56, 28);
       this.cbRandom.TabIndex       = 1;
@@ -367,16 +345,16 @@ namespace NeoGhost
       this.lblPeriodLabel.AutoSize  = false;
       this.lblPeriodLabel.BackColor = System.Drawing.Color.Transparent;
       this.lblPeriodLabel.Font      = new System.Drawing.Font ("Segoe UI", 10F);
-      this.lblPeriodLabel.ForeColor = System.Drawing.Color.FromArgb (156, 163, 175);
-      this.lblPeriodLabel.Location  = new System.Drawing.Point (24, 112);
+      this.lblPeriodLabel.ForeColor = System.Drawing.Color.FromArgb (196, 199, 200);
+      this.lblPeriodLabel.Location  = new System.Drawing.Point (24, 102);
       this.lblPeriodLabel.Name      = "lblPeriodLabel";
       this.lblPeriodLabel.Size      = new System.Drawing.Size (160, 22);
       this.lblPeriodLabel.Text      = "INTERVAL (s)";
 
-      this.nudPeriod.BackColor   = System.Drawing.Color.FromArgb (20, 20, 20);
+      this.nudPeriod.BackColor   = System.Drawing.Color.FromArgb (26, 26, 29);
       this.nudPeriod.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.nudPeriod.ForeColor   = System.Drawing.Color.White;
-      this.nudPeriod.Location    = new System.Drawing.Point (242, 109);
+      this.nudPeriod.Location    = new System.Drawing.Point (242, 99);
       this.nudPeriod.Maximum     = new decimal (new int[] { 10800, 0, 0, 0 });
       this.nudPeriod.Minimum     = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudPeriod.Name        = "nudPeriod";
@@ -391,7 +369,7 @@ namespace NeoGhost
       this.lbPeriod.BackColor = System.Drawing.Color.Transparent;
       this.lbPeriod.Font      = new System.Drawing.Font ("Segoe UI", 8.5F, System.Drawing.FontStyle.Italic);
       this.lbPeriod.ForeColor = System.Drawing.Color.FromArgb (0, 212, 255);
-      this.lbPeriod.Location  = new System.Drawing.Point (348, 113);
+      this.lbPeriod.Location  = new System.Drawing.Point (348, 103);
       this.lbPeriod.Name      = "lbPeriod";
       this.lbPeriod.Size      = new System.Drawing.Size (48, 18);
       this.lbPeriod.Text      = "1 s";
@@ -401,16 +379,16 @@ namespace NeoGhost
       this.lblDistanceLabel.AutoSize  = false;
       this.lblDistanceLabel.BackColor = System.Drawing.Color.Transparent;
       this.lblDistanceLabel.Font      = new System.Drawing.Font ("Segoe UI", 10F);
-      this.lblDistanceLabel.ForeColor = System.Drawing.Color.FromArgb (156, 163, 175);
-      this.lblDistanceLabel.Location  = new System.Drawing.Point (24, 156);
+      this.lblDistanceLabel.ForeColor = System.Drawing.Color.FromArgb (196, 199, 200);
+      this.lblDistanceLabel.Location  = new System.Drawing.Point (24, 146);
       this.lblDistanceLabel.Name      = "lblDistanceLabel";
       this.lblDistanceLabel.Size      = new System.Drawing.Size (200, 22);
       this.lblDistanceLabel.Text      = "MOVE DISTANCE";
 
-      this.nudDistance.BackColor   = System.Drawing.Color.FromArgb (20, 20, 20);
+      this.nudDistance.BackColor   = System.Drawing.Color.FromArgb (26, 26, 29);
       this.nudDistance.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.nudDistance.ForeColor   = System.Drawing.Color.White;
-      this.nudDistance.Location    = new System.Drawing.Point (242, 153);
+      this.nudDistance.Location    = new System.Drawing.Point (242, 143);
       this.nudDistance.Maximum     = new decimal (new int[] { 120, 0, 0, 0 });
       this.nudDistance.Minimum     = new decimal (new int[] { 1, 0, 0, 0 });
       this.nudDistance.Name        = "nudDistance";
@@ -424,13 +402,13 @@ namespace NeoGhost
       this.lblMinimizeTitle.AutoSize  = false;
       this.lblMinimizeTitle.BackColor = System.Drawing.Color.Transparent;
       this.lblMinimizeTitle.Font      = new System.Drawing.Font ("Segoe UI", 10F);
-      this.lblMinimizeTitle.ForeColor = System.Drawing.Color.FromArgb (156, 163, 175);
-      this.lblMinimizeTitle.Location  = new System.Drawing.Point (24, 200);
+      this.lblMinimizeTitle.ForeColor = System.Drawing.Color.FromArgb (196, 199, 200);
+      this.lblMinimizeTitle.Location  = new System.Drawing.Point (24, 190);
       this.lblMinimizeTitle.Name      = "lblMinimizeTitle";
       this.lblMinimizeTitle.Size      = new System.Drawing.Size (240, 22);
       this.lblMinimizeTitle.Text      = "MINIMIZE ON START";
 
-      this.cbMinimize.Location       = new System.Drawing.Point (332, 198);
+      this.cbMinimize.Location       = new System.Drawing.Point (332, 188);
       this.cbMinimize.Name           = "cbMinimize";
       this.cbMinimize.Size           = new System.Drawing.Size (56, 28);
       this.cbMinimize.TabIndex       = 7;
@@ -444,7 +422,6 @@ namespace NeoGhost
       this.Controls.Add (this.flpLayout);
       this.Font                = new System.Drawing.Font ("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular);
       this.FormBorderStyle     = System.Windows.Forms.FormBorderStyle.None;
-      this.Icon                = (System.Drawing.Icon) resources.GetObject ("$this.Icon");
       this.Margin              = new System.Windows.Forms.Padding (0);
       this.MaximizeBox         = false;
       this.MinimizeBox         = false;
@@ -472,7 +449,7 @@ namespace NeoGhost
     private System.Windows.Forms.FlowLayoutPanel             flpLayout;
 
     private System.Windows.Forms.Panel                       panelHeader;
-    private System.Windows.Forms.Label                       lblLogo;
+    private NeoGhost.Controls.GlowingOrbPanel                    lblLogo;
     private System.Windows.Forms.Label                       lblAppName;
     private System.Windows.Forms.Label                       lblSubtitle;
     private System.Windows.Forms.Button                      btnClose;
@@ -485,7 +462,6 @@ namespace NeoGhost
     private NeoGhost.Controls.ToggleSwitch cbJiggling;
 
     private System.Windows.Forms.Panel                       panelActions;
-    private System.Windows.Forms.Button                      btnSettings;
     private System.Windows.Forms.Button                      btnAbout;
     private System.Windows.Forms.Button                      btnTray;
 
