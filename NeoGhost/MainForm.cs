@@ -44,8 +44,8 @@ public partial class MainForm : Form
   private static readonly Color CardSurface = Color.FromArgb(28, 28, 30);
   private static readonly Color CardBorderMetallic = Color.FromArgb(26, 255, 255, 255);
   private static readonly Color ZincCharcoalBaseline = Color.FromArgb(39, 39, 42);
-  private static readonly Color BeamPurpleTail = Color.FromArgb(168, 85, 247);
-  private static readonly Color BeamCyan = Color.FromArgb(0, 212, 255);
+  private static readonly Color BeamPurpleTail = Color.FromArgb(190, 255, 255, 255);
+  private static readonly Color BeamCyan = Color.White;
 
   private bool _hotKeyRegistered;
 
@@ -277,6 +277,7 @@ public partial class MainForm : Form
     base.OnPaint(e);
     e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
     e.Graphics.Clear(Color.Black);
+    this.DrawReferenceBackdrop(e.Graphics);
     using (Pen borderPen = new Pen(Color.FromArgb(24, 24, 27), 1))
     {
       e.Graphics.DrawRectangle(borderPen, 0, 0, this.ClientSize.Width - 1, this.ClientSize.Height - 1);
@@ -341,12 +342,12 @@ public partial class MainForm : Form
     if (sender is not ComboBox combo) return;
     var rect = e.Bounds;
 
-    // Draw flat dark surface-container — suppress standard Windows 3D bevel
-    using var brush = new SolidBrush(Color.FromArgb(26, 26, 29));
+    // Draw flat dark surface-container to suppress the standard Windows bevel.
+    using var brush = new SolidBrush(Color.FromArgb(28, 28, 30));
     e.Graphics.FillRectangle(brush, rect);
 
     // Draw border
-    using var pen = new Pen(Color.FromArgb(26, 255, 255, 255), 1);
+    using var pen = new Pen(CardBorderMetallic, 1);
     e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width - 1, rect.Height - 1);
 
     // Draw centered white text with null-safe font fallback
@@ -449,10 +450,10 @@ public partial class MainForm : Form
     this.lblStatusText.Text      = active ? "ACTIVE" : "IDLE";
     this.lblStatusText.ForeColor = active
       ? System.Drawing.Color.FromArgb (16, 185, 129)
-      : System.Drawing.Color.FromArgb (100, 116, 139);
+      : System.Drawing.Color.FromArgb (161, 161, 170);
     this.lblJiggleTitle.ForeColor = active
-      ? System.Drawing.Color.FromArgb (0, 212, 255)
-      : System.Drawing.Color.FromArgb (100, 116, 139);
+      ? System.Drawing.Color.White
+      : System.Drawing.Color.FromArgb (196, 199, 200);
   }
 
   private void pnlIndicator_Paint (object sender, System.Windows.Forms.PaintEventArgs e)
@@ -475,6 +476,48 @@ public partial class MainForm : Form
       g.FillEllipse (core, 6, 6, 8, 8);
     }
   }
+
+  private void DrawReferenceBackdrop (Graphics g)
+  {
+    g.SmoothingMode = SmoothingMode.AntiAlias;
+    g.CompositingQuality = CompositingQuality.HighQuality;
+
+    using (var glowPath = new GraphicsPath())
+    {
+      var radius = Math.Max(this.ClientSize.Width, this.ClientSize.Height) * 0.72f;
+      glowPath.AddEllipse(
+        this.ClientSize.Width / 2f - radius,
+        this.ClientSize.Height / 2f - radius,
+        radius * 2f,
+        radius * 2f);
+
+      using var brush = new PathGradientBrush(glowPath)
+      {
+        CenterColor = Color.FromArgb(24, 24, 24, 28),
+        SurroundColors = new[] { Color.Black },
+        CenterPoint = new PointF(this.ClientSize.Width / 2f, this.ClientSize.Height / 2f)
+      };
+      g.FillRectangle(brush, this.ClientRectangle);
+    }
+
+    var time = this._borderBeamProgress * MathF.PI * 2f;
+    var center = new PointF(this.ClientSize.Width / 2f, this.ClientSize.Height * 0.48f);
+    for (int i = 0; i < 58; i++)
+    {
+      var seed = i * 19.137f;
+      var angle = Fract(MathF.Sin(seed) * 43758.545f) * MathF.PI * 2f + time * 0.18f;
+      var orbit = 80f + Fract(MathF.Sin(seed + 7.7f) * 12231.44f) * 190f;
+      var wobble = MathF.Sin(time + i * 0.41f) * 18f;
+      var x = center.X + MathF.Cos(angle) * orbit;
+      var y = center.Y + MathF.Sin(angle) * (orbit * 0.48f) + wobble;
+      var alpha = (int)(18 + Fract(MathF.Sin(seed + 31.9f) * 9182.2f) * 42);
+
+      using var particle = new SolidBrush(Color.FromArgb(alpha, 255, 255, 255));
+      g.FillEllipse(particle, x, y, 1.2f, 1.2f);
+    }
+  }
+
+  private static float Fract (float value) => value - MathF.Floor(value);
 
   private void CustomPanel_Paint (object sender, System.Windows.Forms.PaintEventArgs e)
   {

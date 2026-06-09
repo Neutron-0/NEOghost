@@ -77,8 +77,8 @@
       this.jiggleTimer.Tick    += this.jiggleTimer_Tick;
 
       // -- trayMenu -----------------------------------------------------------
-      this.trayMenu.BackColor = System.Drawing.Color.FromArgb (15, 21, 32);
-      this.trayMenu.ForeColor = System.Drawing.Color.FromArgb (203, 213, 225);
+      this.trayMenu.BackColor = System.Drawing.Color.FromArgb (18, 19, 26);
+      this.trayMenu.ForeColor = System.Drawing.Color.FromArgb (226, 225, 235);
       this.trayMenu.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
         this.tsmiOpen, this.tsmiStartJiggling, this.tsmiStopJiggling, this.tsmiExit });
       this.trayMenu.Name = "trayMenu";
@@ -107,7 +107,7 @@
 
       // -- flpLayout ----------------------------------------------------------
       // Reference tokens: --spacing-gutter 24px, --color-pure-black #000000
-      this.flpLayout.BackColor     = System.Drawing.Color.Black;
+      this.flpLayout.BackColor     = System.Drawing.Color.Transparent;
       this.flpLayout.Controls.Add (this.panelHeader);
       this.flpLayout.Controls.Add (this.panelBase);
       this.flpLayout.Controls.Add (this.panelActions);
@@ -124,7 +124,7 @@
 
       // -- panelHeader --------------------------------------------------------
       // glass-panel surface: rgba(28,28,30,0.5) on pure black
-      this.panelHeader.BackColor = System.Drawing.Color.Black;
+      this.panelHeader.BackColor = System.Drawing.Color.Transparent;
       this.panelHeader.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.panelHeader.Controls.Add (this.lblLogo);
       this.panelHeader.Controls.Add (this.lblAppName);
@@ -190,7 +190,7 @@
       this.lblSubtitle.AutoSize  = false;
       this.lblSubtitle.BackColor = System.Drawing.Color.Transparent;
       this.lblSubtitle.Font      = new System.Drawing.Font ("Segoe UI", 9F);
-      this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb (101, 100, 102);
+      this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb (161, 161, 170);
       this.lblSubtitle.Location  = new System.Drawing.Point (70, 40);
       this.lblSubtitle.Name      = "lblSubtitle";
       this.lblSubtitle.Size      = new System.Drawing.Size (200, 18);
@@ -208,7 +208,7 @@
       this.lblStatusText.AutoSize  = false;
       this.lblStatusText.BackColor = System.Drawing.Color.Transparent;
       this.lblStatusText.Font      = new System.Drawing.Font ("Segoe UI", 7.5F);
-      this.lblStatusText.ForeColor = System.Drawing.Color.FromArgb (100, 116, 139);
+      this.lblStatusText.ForeColor = System.Drawing.Color.FromArgb (161, 161, 170);
       this.lblStatusText.Location  = new System.Drawing.Point (328, 46);
       this.lblStatusText.Name      = "lblStatusText";
       this.lblStatusText.Size      = new System.Drawing.Size (60, 16);
@@ -216,7 +216,7 @@
       this.lblStatusText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 
       // -- panelBase -- jiggle toggle row -------------------------------------
-      this.panelBase.BackColor = System.Drawing.Color.Black;
+      this.panelBase.BackColor = System.Drawing.Color.Transparent;
       this.panelBase.Controls.Add (this.lblJiggleTitle);
       this.panelBase.Controls.Add (this.cbJiggling);
       this.panelBase.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 16);
@@ -241,7 +241,7 @@
       this.cbJiggling.CheckedChanged += this.cbJiggling_CheckedChanged;
 
       // -- panelActions -------------------------------------------------------
-      this.panelActions.BackColor = System.Drawing.Color.Black;
+      this.panelActions.BackColor = System.Drawing.Color.Transparent;
       this.panelActions.Controls.Add (this.btnAbout);
       this.panelActions.Controls.Add (this.btnTray);
       this.panelActions.Margin    = new System.Windows.Forms.Padding (0, 0, 0, 16);
@@ -250,14 +250,14 @@
       this.panelActions.TabIndex  = 2;
       this.panelActions.Paint    += this.CustomPanel_Paint;
 
-      this.btnAbout.BackColor                         = System.Drawing.Color.FromArgb (28, 28, 30);
+      this.btnAbout.BackColor                         = System.Drawing.Color.White;
       this.btnAbout.FlatAppearance.BorderColor        = System.Drawing.Color.FromArgb (26, 255, 255, 255);
       this.btnAbout.FlatAppearance.BorderSize         = 1;
-      this.btnAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (15, 255, 255, 255);
-      this.btnAbout.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (25, 255, 255, 255);
+      this.btnAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (226, 226, 226);
+      this.btnAbout.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (198, 198, 198);
       this.btnAbout.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
-      this.btnAbout.Font                              = new System.Drawing.Font ("Segoe UI", 9F);
-      this.btnAbout.ForeColor                         = System.Drawing.Color.White;
+      this.btnAbout.Font                              = new System.Drawing.Font ("Consolas", 8.5F, System.Drawing.FontStyle.Bold);
+      this.btnAbout.ForeColor                         = System.Drawing.Color.Black;
       this.btnAbout.Location                          = new System.Drawing.Point (6, 5);
       this.btnAbout.Name                              = "btnAbout";
       this.btnAbout.Size                              = new System.Drawing.Size (197, 40);
@@ -272,7 +272,7 @@
       this.btnTray.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb (15, 255, 255, 255);
       this.btnTray.FlatAppearance.MouseDownBackColor  = System.Drawing.Color.FromArgb (25, 255, 255, 255);
       this.btnTray.FlatStyle                         = System.Windows.Forms.FlatStyle.Flat;
-      this.btnTray.Font                              = new System.Drawing.Font ("Segoe UI", 9F);
+      this.btnTray.Font                              = new System.Drawing.Font ("Consolas", 8.5F, System.Drawing.FontStyle.Bold);
       this.btnTray.ForeColor                         = System.Drawing.Color.White;
       this.btnTray.Location                          = new System.Drawing.Point (209, 5);
       this.btnTray.Name                              = "btnTray";
@@ -283,7 +283,7 @@
       this.btnTray.Click                            += new System.EventHandler(this.btnTray_Click);
 
       // -- panelSettings ------------------------------------------------------
-      this.panelSettings.BackColor = System.Drawing.Color.Black;
+      this.panelSettings.BackColor = System.Drawing.Color.Transparent;
       this.panelSettings.Controls.Add (this.lblModeTitle);
       this.panelSettings.Controls.Add (this.cmbJiggleMode);
       this.panelSettings.Controls.Add (this.lblRandomTitle);
@@ -368,7 +368,7 @@
       this.lbPeriod.AutoSize  = false;
       this.lbPeriod.BackColor = System.Drawing.Color.Transparent;
       this.lbPeriod.Font      = new System.Drawing.Font ("Segoe UI", 8.5F, System.Drawing.FontStyle.Italic);
-      this.lbPeriod.ForeColor = System.Drawing.Color.FromArgb (0, 212, 255);
+      this.lbPeriod.ForeColor = System.Drawing.Color.White;
       this.lbPeriod.Location  = new System.Drawing.Point (348, 103);
       this.lbPeriod.Name      = "lbPeriod";
       this.lbPeriod.Size      = new System.Drawing.Size (48, 18);
