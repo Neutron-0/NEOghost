@@ -1,0 +1,19 @@
+======================================================================
+NEOghost Deployment Protocol — Pre-Installation Requirements
+======================================================================
+
+Target Architecture: Windows x64 (Native Binary)
+Runtime Dependencies: None (Self-Contained Execution Layer)
+
+Please review the following system deployment notices before proceeding:
+
+1. Windows Defender SmartScreen Telemetry
+Because NEOghost is an open-source utility distributed without a commercial code-signing certificate, the Windows SmartScreen filter may flag the executable binary path as an unknown publisher. This behavior is expected. To bypass the block, click "More Info" followed by "Run Anyway" on the subsequent security dialog.
+
+2. Process Execution Requirements
+The core simulation engine hooks directly into low-level Win32 API subsystems to manage thread execution states. Administrative privileges are required during this setup wizard to create the local installation folder structure within the protected Program Files directory.
+
+3. Automated Silent Installation Support
+For unattended network staging or local dev-ops environments, this installer can be initialized silently from an elevated PowerShell terminal. Refer to the project repository documentation for the necessary command-line arguments.
+
+Click Next to accept these structural conditions and begin file extraction.

@@ -1,0 +1,47 @@
+============================================================================
+NEOghost Initialization Complete
+============================================================================
+
+The NEOghost background engine has been successfully deployed onto your local 
+workstation environment. The architecture is configured natively for win-x64 
+and runs as an isolated subsystem with zero external framework dependencies.
+
+Default Deployment Location:
+C:\Program Files\NEOghost\NeoGhost.exe
+
+--------------------------------------------------------------------------------
+System Control Parameters & Global Hotkeys
+--------------------------------------------------------------------------------
+
+NEOghost operates directly within the low-level Windows window messaging loop
+(WndProc) to intercept system state telemetry. Use these system hardware input
+listener combinations to control execution from any active window:
+
+* Toggle Engine State (Active / Idle)      : Ctrl + Alt + J
+* Conceal Application Window (Hide to Tray) : Ctrl + Shift + H
+
+--------------------------------------------------------------------------------
+Unattended Command-Line Infrastructure Deployment
+--------------------------------------------------------------------------------
+
+For future headless enterprise staging, rapid provisioning workflows, or remote 
+DevOps terminal distribution, utilize the following execution layout from an
+administrative Windows PowerShell instance:
+
+  # 1. Strip the NTFS alternative data stream zone identifier block
+  Unblock-File -Path ".\NeoGhost_Setup.exe"
+
+  # 2. Execute completely silent distribution bypassing user GUI wizard elements
+  .\NeoGhost_Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /PASSWORD="Neutron-0"
+
+--------------------------------------------------------------------------------
+Support Matrix and Technical Maintenance
+--------------------------------------------------------------------------------
+
+Project Repository : https://github.com/Neutron-0/GhostInput
+Organization Hub   : https://github.com/Neutron-0
+System Maintainer  : Neutron-0
+
+For technical bug reports, telemetry adjustments, or custom Win32 API interop 
+contributions, please open an issue ticket on the official GitHub repository.
+================================================================================

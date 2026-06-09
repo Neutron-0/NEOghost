@@ -10,6 +10,8 @@
 #region using
 
 using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -30,9 +32,50 @@ public sealed partial class AboutBox : Form
     this.lbCopyright.Text = AssemblyCopyright;
     this.lbCompanyName.Text = AssemblyCompany;
     this.tbDescription.Text = AssemblyDescription;
+
+    this.ApplyReferenceTheme ();
   }
 
   private void cmdOk_Click (object sender, EventArgs e) => this.Close ();
+
+  private void ApplyReferenceTheme ()
+  {
+    this.BackColor = Color.Black;
+    this.ForeColor = Color.White;
+    this.Padding = new Padding(12);
+
+    this.baseLayout.BackColor = Color.Transparent;
+    this.pbLogo.BackColor = Color.Black;
+
+    this.lbProductName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+    this.lbProductName.ForeColor = Color.White;
+    this.lbVersion.ForeColor = Color.FromArgb(196, 199, 200);
+    this.lbCopyright.ForeColor = Color.FromArgb(196, 199, 200);
+    this.lbCompanyName.ForeColor = Color.FromArgb(196, 199, 200);
+
+    this.tbDescription.BackColor = Color.FromArgb(28, 28, 30);
+    this.tbDescription.BorderStyle = BorderStyle.FixedSingle;
+    this.tbDescription.ForeColor = Color.FromArgb(226, 225, 235);
+
+    this.cmdOk.BackColor = Color.White;
+    this.cmdOk.FlatAppearance.BorderColor = Color.White;
+    this.cmdOk.FlatAppearance.BorderSize = 1;
+    this.cmdOk.FlatAppearance.MouseOverBackColor = Color.FromArgb(226, 226, 226);
+    this.cmdOk.FlatAppearance.MouseDownBackColor = Color.FromArgb(198, 198, 198);
+    this.cmdOk.FlatStyle = FlatStyle.Flat;
+    this.cmdOk.Font = new Font("Consolas", 8.5F, FontStyle.Bold);
+    this.cmdOk.ForeColor = Color.Black;
+    this.cmdOk.UseVisualStyleBackColor = false;
+  }
+
+  protected override void OnPaint (PaintEventArgs e)
+  {
+    base.OnPaint(e);
+    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+    using var borderPen = new Pen(Color.FromArgb(32, 255, 255, 255), 1f);
+    e.Graphics.DrawRectangle(borderPen, 0, 0, this.ClientSize.Width - 1, this.ClientSize.Height - 1);
+  }
 
   #region Assembly attribute accessors
 

@@ -12,9 +12,9 @@ internal sealed class ToggleSwitch : Control
     private float _animPos;
     private readonly System.Windows.Forms.Timer _animTimer;
 
-    private static readonly Color ColorOnTrack   = Color.FromArgb(82,  82,  91);
+    private static readonly Color ColorOnTrack   = Color.FromArgb(230, 230, 230);
     private static readonly Color ColorOffTrack  = Color.FromArgb(39,  39,  42);
-    private static readonly Color ColorThumbOn   = Color.White;
+    private static readonly Color ColorThumbOn   = Color.Black;
     private static readonly Color ColorThumbOff  = Color.FromArgb(161, 161, 170);
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -90,7 +90,7 @@ internal sealed class ToggleSwitch : Control
 
         if (_animPos > 0.05f)
         {
-            using var glowPen = new Pen(Color.FromArgb((int)(30 * _animPos), ColorOnTrack), 2f);
+            using var glowPen = new Pen(Color.FromArgb((int)(90 * _animPos), 255, 255, 255), 2f);
             DrawRoundRect(g, glowPen, 1, 1, w - 2, h - 2, r - 1);
         }
 
